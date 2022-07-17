@@ -1,0 +1,29 @@
+.nav {
+    grid-area: n;
+    background-color: rgb(24, 32, 36);
+    border-radius: 5px;
+}
+  
+.nav ul {
+    padding-left: 20px;
+    font-weight: 400;
+    font-size: 26px;
+    line-height: 40px;
+    list-style-type: none;
+}
+
+.nav_item a {
+    text-decoration: none;
+    color: rgb(255, 255, 255);
+}
+
+.nav_item .active {
+    color: rgb(6, 176, 109);
+}
+
+.divider {
+    margin-top: 3px;
+    width: 80%;
+    height: 1px;
+    background: rgb(6, 176, 109);
+}

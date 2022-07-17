@@ -1,0 +1,51 @@
+.submit-box {
+    width: 580px;
+    padding: 20px 15px 10px 15px;
+    margin-top: 10px;
+    background-color: white;
+    border: 1px solid gray;
+    border-radius: 5px;
+}
+
+.submit-box__area {
+    display: flex;
+}
+
+.submit-box__img {
+    width: 30px;
+    height: 30px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.submit-box__text {
+    min-height: 10px;
+    margin-left: 10px;
+    width: 300px;
+    border: none;
+    background-color: rgba(0,0,0,0.0);
+    font-size: 13px;
+    font-weight: 300;
+    resize: none;
+    outline: none;
+    color: rgb(24, 32, 36);
+}
+
+.submit-box__buttons {
+    display: flex;
+    justify-content: right;
+}
+
+.submit-box__btn {
+    height: 30px;
+    width: 60px;
+    font-size: 11px;
+    font-weight: 700;
+    background-color: rgb(6, 176, 109);
+    background-image: linear-gradient(rgb(7, 201, 124) 0%, rgb(6, 176, 109) 100%);
+    border: none;
+    color: rgb(255, 255, 255);
+    border-radius: 4px;
+    margin-right: 5px;
+    cursor: pointer;
+}

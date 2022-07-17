@@ -1,0 +1,12 @@
+.post_wrapper {
+    margin-top: 50px;
+    width: 580px;
+}
+
+.post_title{
+    /* margin-left: 20px; */
+    font-size: 28px;
+    color: rgb(24, 32, 36);
+}
+
+

@@ -1,0 +1,23 @@
+.profile {
+  background-color: rgb(225, 227, 230);
+  border-radius: 5px;
+  /* display: flex; */
+  display: grid;
+  grid-template-columns: 250px 1fr;
+}
+
+.profile__left-column {
+  padding: 10px;
+}
+
+.profile__right-column {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  padding: 10px 20px 10px 0;
+}
+
+
+
+
+  
