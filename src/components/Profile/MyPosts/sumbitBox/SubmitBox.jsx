@@ -2,7 +2,7 @@ import c from './SubmitBox.module.css';
 
 import React from 'react';
 
-import { addPostActionCreator, changePostActionCreator } from '../../../../Store/store';
+import { addPostActionCreator, changePostActionCreator } from '../../../../Store/Reducers/profileReducer';
 
 const SubmitBox = ({dispatch, newPostText}) => {
 

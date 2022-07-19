@@ -5,13 +5,14 @@ import friend1_img from '../icons/friends/friend_1.jpg';
 import friend2_img from '../icons/friends/friend_2.jpg';
 import friend3_img from '../icons/friends/friend_3.jpg';
 import friend4_img from '../icons/friends/friend_4.jpg';
+
 import camera_img from '../icons/camera_25.png';
 import like_img from '../icons/like.svg';
 
-const addPost = 'ADD-POST';
-const changePost = 'CHANGE-POST';
+import { profileReducer } from './Reducers/profileReducer';
+import { messageReducer } from './Reducers/messageReducer';
 
-let store = {
+const store = {
     _state: {
         profilePage: {
             postStore: [
@@ -92,45 +93,11 @@ let store = {
     },
     
     dispatch(action) {
-        switch(action.type) {
-            case addPost: {
-                let newPost = {
-                    name: 'Владислав Павлович',
-                    img: camera_img,
-                    date: `${new Date().getDate()} ${new Date().getMonth()} ${new Date().getFullYear()}`,
-                    text: this._state.profilePage.newPostText,
-                    likeCount: 6,
-                    id: 3,
-                    like: like_img
-                };
-                
-                this._state.profilePage.postStore.push(newPost);
-                this._state.profilePage.newPostText = '';
-            
-                this._callSubscriber(this._state);
-                break;
-            }
-            case changePost: {
-                this._state.profilePage.newPostText = action.payload;
-                this._callSubscriber(this._state);
-                break;
-            }
-            default: {
-                console.log('invalid action creator name');
-                break;
-            }
+        this._state.profilePage = profileReducer(this._state.profilePage, action);
+        this._state.messagesPage = messageReducer(this._state.messagesPage, action);
 
-        }
+        this._callSubscriber();
     },
-}
-
-export const addPostActionCreator = () => ({type: addPost});
-    
-export const changePostActionCreator = (value) => {
-    return {
-        type: changePost,
-        payload: value
-    }
 }
 
 export default store;

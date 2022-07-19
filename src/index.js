@@ -4,11 +4,11 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App/App';
 
-import store from './Store/store';
+import store from './Store/reduxStore';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
-let rerenderEntireTree = (state) => {
+let rerenderEntireTree = () => {
   root.render(
     <React.StrictMode>
       <App 
