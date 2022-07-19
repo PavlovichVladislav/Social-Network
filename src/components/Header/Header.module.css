@@ -6,14 +6,14 @@
     border-radius: 5px;
   }
 
-.header__left {
+.headerLeft {
   position: absolute;
   height: 32px;
   top: 50%;
   transform: translateY(-50%);
 }
 
-.header__logo {
+.headerLogo {
   width: 140px;
   height: 32px;
   /* margin-left: 10px; */
@@ -21,7 +21,7 @@
   cursor: pointer;
 }
 
-.header__language {
+.headerLanguage {
   position: absolute;
   margin-left: 47px;
   height: 32px;
@@ -32,7 +32,7 @@
   cursor: pointer;
 }
 
-.header__right {
+.headerRight {
   display: flex;
   width: 410px;
   justify-content: space-between;
@@ -42,7 +42,7 @@
   right: 10px;
 } 
 
-.header__searchPannel {
+.headerSearchPannel {
   padding: 5px 12px;
   width: 130px;
   height: 32px;

@@ -99,7 +99,7 @@ let store = {
                     img: camera_img,
                     date: `${new Date().getDate()} ${new Date().getMonth()} ${new Date().getFullYear()}`,
                     text: this._state.profilePage.newPostText,
-                    likeCount: 0,
+                    likeCount: 6,
                     id: 3,
                     like: like_img
                 };
@@ -116,7 +116,7 @@ let store = {
                 break;
             }
             default: {
-                console.log('eror')
+                console.log('invalid action creator name');
                 break;
             }
 

@@ -1,10 +1,10 @@
-import classes from './dialogs.module.css';
+import c from './Dialogs.module.css';
 
 import DialogsItem from './DialogsItem/DialogsItem';
+import DialogsPannel from './DialogsPannel/DialogsPannel';
 
-const Dialogs = (props) => {
-
-    let messages = props.state.messageStore.map( message => 
+const Dialogs = ({state}) => {
+    const messages = state.messageStore.map( message => 
         <DialogsItem 
             name={message.name} 
             lastMessage={message.lastMessage} 
@@ -16,10 +16,9 @@ const Dialogs = (props) => {
     )
 
     return (
-        <div className={classes.mesages}>
-            <div className={classes.mesages_items}>
-                {messages}
-            </div>
+        <div className={c.mesages}>
+            <DialogsPannel/>
+            {messages}
         </div>
     )
 }

@@ -5,9 +5,13 @@
     height: 70px;
     display: flex;
     background-color: rgb(24, 32, 36);
-    border: 2px solid black;
+    border: 1px solid black;
     border-radius: 4px;
     cursor: pointer;
+}
+
+.mesageItem:hover {
+    background-color: rgba(24, 32, 36, 0.9);
 }
 
 .messagePhoto {

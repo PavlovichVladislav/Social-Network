@@ -1,37 +1,38 @@
+import './App.css';
+
 import {
   BrowserRouter as Router,
   Routes,
   Route,
 } from "react-router-dom";
 
-import './App.css';
-
 import Header from '../components/Header/Header';
 import Navbar from '../components/Navbar/Navbar';
 import Profile from '../components/Profile/Profile';
 import Dialogs from '../components/Dialogs/Dialogs';
 
-const App = (props) => {
-
+const App = ({appState, dispatch}) => {
   return (
     <Router>
-      <div className='app-wrapper'>
+      <div className='appWrapper'>
         <Header/>
         <Navbar/>
-        <div className='app-wrapper__content'>
+        <div className='appWrapperContent'>
           <Routes>
             <Route 
               path="/profile" 
               element={
                 <Profile 
-                  state={props.appState.profilePage}
-                  dispatch={props.dispatch}
+                  state={appState.profilePage}
+                  dispatch={dispatch}
                 />}
             />
             <Route 
               path="/messages" 
               element={
-                <Dialogs state={props.appState.messagesPage}/>} 
+                <Dialogs 
+                  state={appState.messagesPage}
+                />} 
             />
           </Routes>
         </div>

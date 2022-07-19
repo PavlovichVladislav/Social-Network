@@ -1,4 +1,4 @@
-.submit-box {
+.submitBox {
     width: 580px;
     padding: 20px 15px 10px 15px;
     margin-top: 10px;
@@ -7,18 +7,18 @@
     border-radius: 5px;
 }
 
-.submit-box__area {
+.submitBoxArea {
     display: flex;
 }
 
-.submit-box__img {
+.submitBoxImg {
     width: 30px;
     height: 30px;
     object-fit: cover;
     border-radius: 50%;
 }
 
-.submit-box__text {
+.submitBoxText {
     min-height: 10px;
     margin-left: 10px;
     width: 300px;
@@ -31,12 +31,12 @@
     color: rgb(24, 32, 36);
 }
 
-.submit-box__buttons {
+.submitBoxButtons {
     display: flex;
     justify-content: right;
 }
 
-.submit-box__btn {
+.submitBoxBtn {
     height: 30px;
     width: 60px;
     font-size: 11px;

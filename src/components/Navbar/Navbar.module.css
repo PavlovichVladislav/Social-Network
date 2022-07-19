@@ -12,12 +12,12 @@
     list-style-type: none;
 }
 
-.nav_item a {
+.navItem a {
     text-decoration: none;
     color: rgb(255, 255, 255);
 }
 
-.nav_item .active {
+.navItem .active {
     color: rgb(6, 176, 109);
 }
 

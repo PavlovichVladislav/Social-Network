@@ -1,4 +1,4 @@
-.friends-block {
+.friendsBlock {
     height: 50px;
     margin-top: 10px;
     padding: 10px 8px;
@@ -13,12 +13,12 @@
     border-radius: 4px;
 }
 
-.friends-block__friend {
+.friendsBlockFriend {
     width: 70px;
     height: 80px;
 }
 
-.friends-block__img {
+.friendsBlockImg {
     display: block;
     margin: 0 auto;
     width: 50px;
@@ -26,6 +26,6 @@
     border-radius: 50%;
 }
 
-.friends-block__name {
+.friendsBlockName {
     text-align: center;
 }

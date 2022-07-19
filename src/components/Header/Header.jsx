@@ -4,20 +4,20 @@ import logo from '../../img/logo.svg'
 const Header = () => {
     return (
       <header className={c.header}>
-        <div className={c.header__left}>
-          <img className={c.header__logo} src={logo} alt="icon" />
+        <div className={c.headerLeft}>
+          <img className={c.headerLogo} src={logo} alt="icon" />
 
-          <select className={c.header__language} name="" id="">
+          <select className={c.headerLanguage} name="drop-down list">
             <option value="">Русский</option>
             <option value="">English</option>
           </select>
         </div>
   
-        <div className={c.header__right} value="Search...">
+        <div className={c.headerRight}>
           <input 
             placeholder='Search...' 
             type="text" 
-            className={c.header__searchPannel} 
+            className={c.headerSearchPannel} 
           />
           <button className={c.btn}> SIGN IN</button>
           <button className={c.btn}> CREATE ACCOUNT</button>

@@ -3,19 +3,19 @@
   box-sizing: border-box;
 }
 
-.app-wrapper {
+.appWrapper {
   margin: 0 auto;
   width: 1140px;
+  display: grid;
   grid-template-areas:
   'h h'
   "n c";
-  display: grid;
   grid-template-rows: 60px 1fr;
   grid-template-columns: 2fr 10fr;
   grid-gap: 10px;
 }
 
-.app-wrapper__content {
+.appWrapperContent {
   grid-area: c;
   border-radius: 5px;
 }
