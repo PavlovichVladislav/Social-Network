@@ -2,19 +2,7 @@ import c from './SubmitBox.module.css';
 
 import React from 'react';
 
-import { addPostActionCreator, changePostActionCreator } from '../../../../Store/Reducers/profileReducer';
-
-const SubmitBox = ({dispatch, newPostText}) => {
-
-    const sendPost = () => {
-        dispatch(addPostActionCreator());
-    }
-
-    let onPostChange = (e) => {
-        dispatch(changePostActionCreator(e.target.value));
-        e.target.value= newPostText;
-    }
-
+const SubmitBox = ({addPost, changePost, newPostText}) => {
     return (
         <div className={c.submitBox}>
             <div className={c.submitBoxArea}>
@@ -29,12 +17,12 @@ const SubmitBox = ({dispatch, newPostText}) => {
                     placeholder='Что нового?'
                     value={newPostText}
                     className={c.submitBoxText}
-                    onChange={onPostChange}
+                    onChange={changePost}
                 />  
             </div>
             <div className={c.submitBoxButtons}>
                 <button 
-                    onClick={sendPost} 
+                    onClick={addPost} 
                     className={c.submitBoxBtn}
                 >
                     Send

@@ -1,6 +1,9 @@
 import c from './FriendsBlock.module.css';
 
-const FriendsBlock = ({friendsStore}) => {
+const FriendsBlock = ({store}) => {
+    const friendsStore = store.getState().profilePage.friendsStore;
+    console.log(friendsStore);
+
     const friends = friendsStore.map( (friend,index) => {
         if (index < 6) {
             return (

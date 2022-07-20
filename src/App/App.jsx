@@ -9,9 +9,9 @@ import {
 import Header from '../components/Header/Header';
 import Navbar from '../components/Navbar/Navbar';
 import Profile from '../components/Profile/Profile';
-import Dialogs from '../components/Dialogs/Dialogs';
+import DialogsContainer from '../components/Dialogs/DialogsContainer';
 
-const App = ({appState, dispatch}) => {
+const App = ({store}) => {
   return (
     <Router>
       <div className='appWrapper'>
@@ -23,15 +23,14 @@ const App = ({appState, dispatch}) => {
               path="/profile" 
               element={
                 <Profile 
-                  state={appState.profilePage}
-                  dispatch={dispatch}
+                  store={store}
                 />}
             />
             <Route 
               path="/messages" 
               element={
-                <Dialogs 
-                  state={appState.messagesPage}
+                <DialogsContainer 
+                  store={store}
                 />} 
             />
           </Routes>

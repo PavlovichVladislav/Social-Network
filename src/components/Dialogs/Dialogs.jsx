@@ -1,20 +1,8 @@
 import c from './Dialogs.module.css';
 
-import DialogsItem from './DialogsItem/DialogsItem';
 import DialogsPannel from './DialogsPannel/DialogsPannel';
 
-const Dialogs = ({state}) => {
-    const messages = state.messageStore.map( message => 
-        <DialogsItem 
-            name={message.name} 
-            lastMessage={message.lastMessage} 
-            img={message.img} 
-            id={message.id}
-            time={message.time}
-            lastMessageImg={message.lastMessageImg}
-        /> 
-    )
-
+const Dialogs = ({messages}) => {
     return (
         <div className={c.mesages}>
             <DialogsPannel/>
