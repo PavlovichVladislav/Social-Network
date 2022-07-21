@@ -1,34 +1,31 @@
-import StoreContext from '../../../Store/StoreContext';
+import { connect } from 'react-redux';
+
 import Post from './Post/Post';
 import Posts from './Posts';
 
-const PostsContainer = () => {
-    return (
-        <StoreContext.Consumer> 
-        {
-            (store) => {
-                function createPosts(postsArray) {
-                    let posts = postsArray.map(post => {
-                        return <Post
-                                    img={post.img}
-                                    name={post.name}
-                                    date={post.date}
-                                    text={post.text}
-                                    like_count={post.likeCount}
-                                    like={post.like}
-                                />
-                    })
-            
-                    return posts;
-                }
+const mapStateToProps = (state) => {
+    const createPosts = (postsArray) => {
+        const posts = postsArray.map(post => {
+            return <Post
+                        img={post.img}
+                        name={post.name}
+                        date={post.date}
+                        text={post.text}
+                        like_count={post.likeCount}
+                        like={post.like}
+                    />
+        })
 
-                const posts = createPosts(store.getState().profilePage.postStore);
+        return posts;
+    }
 
-                return <Posts posts={posts}/>
-            }
-        }
-        </StoreContext.Consumer>
-    )
+    const posts = createPosts(state.profilePage.postStore);
+
+    return {
+        posts,
+    }
 }
+
+const PostsContainer = connect(mapStateToProps, null)(Posts);
 
 export default PostsContainer;

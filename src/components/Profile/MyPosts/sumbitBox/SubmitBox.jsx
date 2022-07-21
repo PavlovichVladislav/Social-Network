@@ -17,7 +17,7 @@ const SubmitBox = ({addPost, changePost, newPostText}) => {
                     placeholder='Что нового?'
                     value={newPostText}
                     className={c.submitBoxText}
-                    onChange={changePost}
+                    onChange={(e) => {changePost(e.target.value)}}
                 />  
             </div>
             <div className={c.submitBoxButtons}>

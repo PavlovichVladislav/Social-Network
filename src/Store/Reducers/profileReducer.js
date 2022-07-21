@@ -57,6 +57,7 @@ const initialState = {
 export const profileReducer = (state = initialState, action) => {
     switch(action.type) {
         case addPost: {
+            
             let newPost = {
                 name: 'Владислав Павлович',
                 img: camera_img,
@@ -67,14 +68,18 @@ export const profileReducer = (state = initialState, action) => {
                 like: like_img
             };
             
-            state.postStore.push(newPost);
-            state.newPostText = '';
-        
-            break;
+            const stateCopy = {...state};
+            stateCopy.postStore = [...state.postStore];
+            stateCopy.postStore.push(newPost);
+            stateCopy.newPostText = '';
+            
+            return stateCopy;
         }
         case changePost: {
-            state.newPostText = action.payload;
-            break;
+            const stateCopy = {...state};
+            stateCopy.newPostText = action.payload;
+
+            return stateCopy;
         }
         default: {
             console.log('invalid action creator name');
