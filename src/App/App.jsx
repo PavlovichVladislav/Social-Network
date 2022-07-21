@@ -11,7 +11,7 @@ import Navbar from '../components/Navbar/Navbar';
 import Profile from '../components/Profile/Profile';
 import DialogsContainer from '../components/Dialogs/DialogsContainer';
 
-const App = ({store}) => {
+const App = (props) => {
   return (
     <Router>
       <div className='appWrapper'>
@@ -21,17 +21,11 @@ const App = ({store}) => {
           <Routes>
             <Route 
               path="/profile" 
-              element={
-                <Profile 
-                  store={store}
-                />}
+              element={<Profile/>}
             />
             <Route 
               path="/messages" 
-              element={
-                <DialogsContainer 
-                  store={store}
-                />} 
+              element={<DialogsContainer/>} 
             />
           </Routes>
         </div>

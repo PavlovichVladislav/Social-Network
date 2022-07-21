@@ -3,18 +3,36 @@ import React from 'react';
 import SubmitBox from './SubmitBox';
 
 import { addPostActionCreator, changePostActionCreator } from '../../../../Store/Reducers/profileReducer';
+import StoreContext from '../../../../Store/StoreContext';
 
-const SubmitBoxContainer = ({dispatch, newPostText}) => {
-    const addPost = () => {
-        dispatch(addPostActionCreator());
-    }
+const SubmitBoxContainer = () => {
+    
+    // 
+    // dispatch={store.dispatch}
 
-    let changePost = (e) => {
-        dispatch(changePostActionCreator(e.target.value));
-        e.target.value= newPostText;
-    }
+    return (
+        <StoreContext.Consumer> 
+        {
+            (store) => {
+                let newPostText = store.getState().profilePage.newPostText;
 
-    return (<SubmitBox addPost={addPost} changePost={changePost} newPostText={newPostText}/>)
+                const addPost = () => {
+                    store.dispatch(addPostActionCreator());
+                }
+            
+                let changePost = (e) => {
+                    store.dispatch(changePostActionCreator(e.target.value));
+                }
+
+                return <SubmitBox 
+                            addPost={addPost} 
+                            changePost={changePost} 
+                            newPostText={newPostText}
+                        />
+            }
+        }      
+        </StoreContext.Consumer>
+    )
 }
 
 export default SubmitBoxContainer;
