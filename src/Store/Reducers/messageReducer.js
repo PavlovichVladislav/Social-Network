@@ -51,24 +51,24 @@ export const messageReducer = (state = initialState, action) => {
                 lastMessageImg: camera_img
             }
 
-            const stateCopy = {...state};
-            stateCopy.messageStore = [...state.messageStore];
-            stateCopy.messageStore.push(newMessage);
-
-            stateCopy.newMessageRecipient = '';
-            stateCopy.newMessageText = '';
-
-            return stateCopy;
+            return {
+                ...state,
+                messageStore: [...state.messageStore, newMessage],
+                newMessageRecipient: '',
+                newMessageText: '',
+            };
         }
         case changeRecipient: {
-            const stateCopy = {...state};
-            stateCopy.newMessageRecipient = action.payload;
-            return stateCopy;
+            return {
+                ...state,
+                newMessageRecipient: action.payload,
+            };
         }
         case changeMessage: {
-            const stateCopy = {...state};
-            stateCopy.newMessageText = action.payload;
-            return stateCopy;
+            return {
+                ...state,
+                newMessageText: action.payload,
+            };
         }
         default: {
             console.log('invalid action creator name');

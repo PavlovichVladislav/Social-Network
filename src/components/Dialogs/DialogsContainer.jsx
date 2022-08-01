@@ -12,6 +12,7 @@ const mapStateToProps = (state) => {
             id={message.id}
             time={message.time}
             lastMessageImg={message.lastMessageImg}
+            key={message.id}
         /> 
     )
 

@@ -67,18 +67,18 @@ export const profileReducer = (state = initialState, action) => {
                 like: like_img
             };
             
-            const stateCopy = {...state};
-            stateCopy.postStore = [...state.postStore];
-            stateCopy.postStore.push(newPost);
-            stateCopy.newPostText = '';
+            return {
+                ...state,
+                postStore: [...state.postStore, newPost],
+                newPostText: '',
+            };
             
-            return stateCopy;
         }
         case changePost: {
-            const stateCopy = {...state};
-            stateCopy.newPostText = action.payload;
-
-            return stateCopy;
+            return {
+                ...state,
+                newPostText: action.payload
+            };
         }
         default: {
             console.log('invalid action creator name');
