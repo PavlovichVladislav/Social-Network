@@ -1,11 +1,11 @@
 import c from './Dialogs.module.css';
 
-import DialogsPannel from './DialogsPannel/DialogsPannel';
+import DialogsPannelContainer from './DialogsPannel/DialogsPannelContainer';
 
 const Dialogs = ({messages}) => {
     return (
         <div className={c.mesages}>
-            <DialogsPannel/>
+            <DialogsPannelContainer/>
             {messages}
         </div>
     )

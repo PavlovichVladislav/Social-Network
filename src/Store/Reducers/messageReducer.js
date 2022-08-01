@@ -4,6 +4,10 @@ import friend1_img from '../../icons/friends/friend_1.jpg';
 import friend2_img from '../../icons/friends/friend_2.jpg';
 import friend3_img from '../../icons/friends/friend_3.jpg';
 
+const sendMessage = 'SEND-MESSAGE';
+const changeRecipient = 'CHANGE-RECIPIENT';
+const changeMessage = 'CHANGE-MESSAGE';
+
 const initialState = {
     messageStore: [
         {
@@ -31,9 +35,65 @@ const initialState = {
             lastMessageImg: camera_img,
         }, 
     ],
+    newMessageRecipient: '',
+    newMessageText: '',
 }
 
 export const messageReducer = (state = initialState, action) => {
-    
+    switch (action.type) {
+        case sendMessage: {
+            const newMessage = {
+                name: state.newMessageRecipient,
+                lastMessage: state.newMessageText,
+                id: 4,
+                img: camera_img,
+                time: `${new Date().getHours()}:${new Date().getMinutes()}`,
+                lastMessageImg: camera_img
+            }
+
+            const stateCopy = {...state};
+            stateCopy.messageStore = [...state.messageStore];
+            stateCopy.messageStore.push(newMessage);
+
+            stateCopy.newMessageRecipient = '';
+            stateCopy.newMessageText = '';
+
+            return stateCopy;
+        }
+        case changeRecipient: {
+            const stateCopy = {...state};
+            stateCopy.newMessageRecipient = action.payload;
+            return stateCopy;
+        }
+        case changeMessage: {
+            const stateCopy = {...state};
+            stateCopy.newMessageText = action.payload;
+            return stateCopy;
+        }
+        default: {
+            console.log('invalid action creator name');
+            break;
+        }
+    }
     return state;
+}
+
+export const sendMessageActionCreator = () => {  
+    return {
+        type: sendMessage
+    }
+}
+
+export const changeRecipientActionCreator = (recipient) => {
+    return {
+        type: changeRecipient,
+        payload: recipient
+    }
+}
+
+export const changeMessageActionCreator = (message) => {
+    return {
+        type: changeMessage,
+        payload: message,
+    }
 }

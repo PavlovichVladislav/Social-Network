@@ -57,7 +57,6 @@ const initialState = {
 export const profileReducer = (state = initialState, action) => {
     switch(action.type) {
         case addPost: {
-            
             let newPost = {
                 name: 'Владислав Павлович',
                 img: camera_img,
