@@ -81,7 +81,6 @@ export const profileReducer = (state = initialState, action) => {
             };
         }
         default: {
-            console.log('invalid action creator name');
             break;
         }
 

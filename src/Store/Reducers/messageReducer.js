@@ -71,7 +71,6 @@ export const messageReducer = (state = initialState, action) => {
             };
         }
         default: {
-            console.log('invalid action creator name');
             break;
         }
     }
