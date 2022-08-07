@@ -1,6 +1,7 @@
 const toggleFollow = 'TOGGLE_FOLLOW';
 const unfollow = 'UNFOLLOW';
-const setUsers = 'SET_USERS'
+const setUsers = 'SET_USERS';
+const setCurPage = 'SET_CURRENT_PAGE';
 
 const initialState = {
     users: [
@@ -33,7 +34,9 @@ const initialState = {
             photo: '',
             followed: true,
         }
-    ]
+    ],
+    pageSize: 5,
+    currentPage: 1,
 };
 
 const usersReducer = (state = initialState, action) => {
@@ -51,21 +54,16 @@ const usersReducer = (state = initialState, action) => {
             }
 
         }
-        // case unfollow: {
-        //     return {
-        //         ...state, 
-        //         users: state.users.map(user => {
-        //             if (user.id === action.payload) {
-        //                 return {...user, followed: false}
-        //             }
-        //             return user;
-        //         })
-        //     }
-        // }
         case setUsers: {
             return {
                 ...state,
                 users: [...state.users, ...action.payload]
+            }
+        }
+        case setCurPage: {
+            return {
+                ...state,
+                currentPage: action.payload
             }
         }
         default:
@@ -91,9 +89,15 @@ export const unfollowAC = (userId) => {
 }
 
 export const setUsersAC = (users) => {
-    console.log('hello')
     return {
         type: setUsers,
         payload: users
+    }
+}
+
+export const setCurPageAC = (curPage) => {
+    return {
+        type: setCurPage,
+        payload: curPage
     }
 }

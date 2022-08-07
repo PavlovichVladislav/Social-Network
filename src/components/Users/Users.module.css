@@ -1,0 +1,56 @@
+.navActive {
+    font-weight: 900;
+}
+
+.nav {
+
+}
+
+.user {
+    margin-bottom: 5px;
+    padding: 10px 25px 10px 20px;
+    width: 550px;
+    height: 100px;
+    display: flex;
+    background-color: rgb(24, 32, 36);
+    border: 1px solid black;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.userInfo {
+    margin-left: 10px;
+    width: 285px;
+}
+
+.userPhoto {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.userName {
+    color: rgb(255, 255, 255);
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.userStatus {
+    color: rgb(147, 147, 147);
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.userBtn {
+    width: 130px;
+    height: 32px;
+    font-size: 11px;
+    font-weight: 700;
+    color: rgb(0, 0, 0);
+    background-color: rgb(6, 176, 109);
+    background-image: linear-gradient(rgb(7, 201, 124) 0%, rgb(6, 176, 109) 100%);
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}

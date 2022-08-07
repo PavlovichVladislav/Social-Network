@@ -1,10 +1,10 @@
 import classes from './DialogsItem.module.css';
 
-import { NavLink } from "react-router-dom";
+// import { NavLink } from "react-router-dom";
 
 const DialogsItem = (props) => {
-    let path = "/messages/" + props.id;
-
+    // let path = "/messages/" + props.id;
+    
     return (
         <div className={classes.mesageItem}>
             <div className={classes.messagePhoto}>
@@ -24,8 +24,8 @@ const DialogsItem = (props) => {
     )
 }
 
-{/* <NavLink to={path}>
+/* <NavLink to={path}>
 {props.name}
-</NavLink> */}
+</NavLink> */
 
 export default DialogsItem;
