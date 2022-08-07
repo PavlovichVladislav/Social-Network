@@ -2,6 +2,7 @@ const toggleFollow = 'TOGGLE_FOLLOW';
 const unfollow = 'UNFOLLOW';
 const setUsers = 'SET_USERS';
 const setCurPage = 'SET_CURRENT_PAGE';
+const toggleLoading = 'TOGGLE_LOADING';
 
 const initialState = {
     users: [
@@ -37,6 +38,7 @@ const initialState = {
     ],
     pageSize: 5,
     currentPage: 1,
+    loading: false
 };
 
 const usersReducer = (state = initialState, action) => {
@@ -64,6 +66,12 @@ const usersReducer = (state = initialState, action) => {
             return {
                 ...state,
                 currentPage: action.payload
+            }
+        }
+        case toggleLoading: {
+            return {
+                ...state,
+                loading: !state.loading
             }
         }
         default:
@@ -101,3 +109,6 @@ export const setCurPageAC = (curPage) => {
         payload: curPage
     }
 }
+
+export const toggleLoadingAC = () => ({type: toggleLoading})
+
