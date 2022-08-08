@@ -1,7 +1,8 @@
 import c from "./Header.module.css"
 import logo from '../../img/logo.svg' 
+import { NavLink } from "react-router-dom";
 
-const Header = () => {
+const Header = ({email, signIn, isAuth, logOut}) => {
     return (
       <header className={c.header}>
         <div className={c.headerLeft}>
@@ -19,8 +20,23 @@ const Header = () => {
             type="text" 
             className={c.headerSearchPannel} 
           />
-          <button className={c.btn}> SIGN IN</button>
-          <button className={c.btn}> CREATE ACCOUNT</button>
+          {isAuth === false 
+          ? <>
+              <NavLink to={'/login'}>
+                <button 
+                  className={c.btn}
+                  onClick={signIn}
+                > SIGN IN</button>
+              </NavLink>
+              <NavLink to={'/signUp'}>
+                <button className={c.btn}>CREATE ACCOUNT</button>
+              </NavLink>
+            </>
+          : <button 
+              className={c.btn}
+              onClick={logOut}
+              >{email}<br/>log out</button>}
+          
         </div>
       </header>
     )

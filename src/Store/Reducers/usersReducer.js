@@ -1,8 +1,12 @@
-const toggleFollow = 'TOGGLE_FOLLOW';
-const unfollow = 'UNFOLLOW';
-const setUsers = 'SET_USERS';
-const setCurPage = 'SET_CURRENT_PAGE';
-const toggleLoading = 'TOGGLE_LOADING';
+import user0 from '../../img/profile_img.jpg'
+import user1 from '../../img/user1.jpg'
+import user2 from '../../img/user2.jpg'
+
+const _toggleFollow = 'TOGGLE_FOLLOW';
+const _unfollow = 'UNFOLLOW';
+const _setUsers = 'SET_USERS';
+const _setCurPage = 'SET_CURRENT_PAGE';
+const _toggleLoading = 'TOGGLE_LOADING';
 
 const initialState = {
     users: [
@@ -10,29 +14,29 @@ const initialState = {
             id: 1, 
             name: 'Павлович Владислав',
             status: 'Новосибирск',
-            photo: '',
+            photos: {small: user0},
             followed: true,
 
         },
         {
             id: 2, 
             name: 'Саакян Георгий',
-            status: 'НГС',
-            photo: '',
+            status: 'Саскян из НГСОХИ',
+            photos: {small: user2},
             followed: true,
         },
         {
             id: 3, 
             name: 'Зубань Ярослав',
             status: 'В поиске шаловливых ощущений',
-            photo: '',
+            photos: {small: user1},
             followed: true,
         },
         {
             id: 4, 
             name: 'Белов Ярослав',
             status: '',
-            photo: '',
+            photos: {small: null},
             followed: true,
         }
     ],
@@ -44,7 +48,7 @@ const initialState = {
 const usersReducer = (state = initialState, action) => {
 
     switch(action.type) {
-        case toggleFollow: {
+        case _toggleFollow: {
             return {
                 ...state, 
                 users: state.users.map(user => {
@@ -56,19 +60,19 @@ const usersReducer = (state = initialState, action) => {
             }
 
         }
-        case setUsers: {
+        case _setUsers: {
             return {
                 ...state,
                 users: [...state.users, ...action.payload]
             }
         }
-        case setCurPage: {
+        case _setCurPage: {
             return {
                 ...state,
                 currentPage: action.payload
             }
         }
-        case toggleLoading: {
+        case _toggleLoading: {
             return {
                 ...state,
                 loading: !state.loading
@@ -82,33 +86,33 @@ const usersReducer = (state = initialState, action) => {
 
 export default usersReducer;
 
-export const toggleFollowAC = (userId) => {
+export const toggleFollow = (userId) => {
     return {
-        type: toggleFollow,
+        type: _toggleFollow,
         payload: userId
     }
 }
 
-export const unfollowAC = (userId) => {
+export const unfollow = (userId) => {
     return {
-        type: unfollow,
+        type: _unfollow,
         payload: userId
     }
 }
 
-export const setUsersAC = (users) => {
+export const setUsers = (users) => {
     return {
-        type: setUsers,
+        type: _setUsers,
         payload: users
     }
 }
 
-export const setCurPageAC = (curPage) => {
+export const setCurPage = (curPage) => {
     return {
-        type: setCurPage,
+        type: _setCurPage,
         payload: curPage
     }
 }
 
-export const toggleLoadingAC = () => ({type: toggleLoading})
+export const toggleLoading = () => ({type: _toggleLoading})
 

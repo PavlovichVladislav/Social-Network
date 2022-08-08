@@ -1,9 +1,9 @@
 import c from "./ProfileInfo.module.css"
 
-const ProfileInfo = () => {
+const ProfileInfo = ({profile}) => {
     return (
         <div className={c['profile-info']}>
-            <h1 className={c['profile-info__name']}>Vladislav Pavlovich</h1>
+            <h1 className={c['profile-info__name']}>{profile.fullName}</h1>
             <div className={c['profile-info__divider']}></div>
             <div className={c['profile-info__content']}>
                 <div >

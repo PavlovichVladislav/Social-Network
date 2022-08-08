@@ -11,7 +11,7 @@ const Navbar = () => {
         <ul>
           <li className={c.navItem}>
             <NavLink 
-              to="/profile"
+              to="/profile/3"
               className={setActiveClass}>
                 Profile
             </NavLink>

@@ -11,6 +11,7 @@ import friend4_img from '../../icons/friends/friend_4.jpg';
 
 const addPost = 'ADD-POST';
 const changePost = 'CHANGE-POST';
+const _setUserProfile = 'SET_USER_PROFILE';
 
 const initialState = {
     postStore: [
@@ -51,7 +52,8 @@ const initialState = {
             img: friend4_img,
             name: 'Илья'
         },
-    ]
+    ],
+    profile: null
 }
 
 export const profileReducer = (state = initialState, action) => {
@@ -72,7 +74,6 @@ export const profileReducer = (state = initialState, action) => {
                 postStore: [...state.postStore, newPost],
                 newPostText: '',
             };
-            
         }
         case changePost: {
             return {
@@ -80,6 +81,13 @@ export const profileReducer = (state = initialState, action) => {
                 newPostText: action.payload
             };
         }
+        case _setUserProfile: {
+            return {
+                ...state, 
+                profile: action.payload
+            }
+        }
+
         default: {
             break;
         }
@@ -97,3 +105,10 @@ export const changePostActionCreator = (value) => {
         payload: value
     }
 }
+
+export const setUserProfile = (profile) => {
+    return {
+        type: _setUserProfile,
+        payload: profile
+    }
+} 

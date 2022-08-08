@@ -5,15 +5,15 @@ import ProfileInfo from "./ProfileInfo/ProfileInfo"
 import ProfilePhoto from "./ProfilePhoto/ProfilePhoto"
 import FriendsBlockContainer from "./FriendsBlock/FriendsBlockContainer"
 
-const Profile = () => {
+const Profile = ({profile}) => {
     return (
         <div className={c.profile}>
             <div className={c.profileLeftColumn}>
-                <ProfilePhoto/>
+                <ProfilePhoto photo={profile.photos.large}/>
                 <FriendsBlockContainer/>
             </div>
             <div className={c.profileRightColumn}>
-                <ProfileInfo/> 
+                <ProfileInfo profile={profile}/> 
                 <PostsContainer/>
             </div>
         </div>

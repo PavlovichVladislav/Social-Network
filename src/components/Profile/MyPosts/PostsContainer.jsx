@@ -5,7 +5,7 @@ import Posts from './Posts';
 
 const mapStateToProps = (state) => {
     const createPosts = (postsArray) => {
-        const posts = postsArray.map(post => {
+        const posts = postsArray.map((post, i) => {
             return <Post
                         img={post.img}
                         name={post.name}
@@ -13,6 +13,7 @@ const mapStateToProps = (state) => {
                         text={post.text}
                         like_count={post.likeCount}
                         like={post.like}
+                        key={i}
                     />
         })
 

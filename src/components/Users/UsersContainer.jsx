@@ -1,6 +1,6 @@
 import { Component } from 'react';
 import { connect } from "react-redux";
-import { setCurPageAC, setUsersAC, toggleFollowAC, toggleLoadingAC } from "../../Store/Reducers/usersReducer";
+import { setCurPage, setUsers, toggleFollow, toggleLoading } from "../../Store/Reducers/usersReducer";
 
 import * as axios from "axios";
 
@@ -52,21 +52,11 @@ const mapStateToProps = (state) => {
     }
 }
 
-const mapDispatchToProps = (dispatch) => {
-    return {
-        toggleFollow: (userId) => {
-            dispatch(toggleFollowAC(userId))
-        },
-        setUsers: (users) => {
-            dispatch(setUsersAC(users))
-        },
-        setCurPage: (curPage) => {
-            dispatch(setCurPageAC(curPage))
-        },
-        toggleLoading: () => {dispatch(toggleLoadingAC())},
-    }
-}
-
-const UsersContainer = connect(mapStateToProps, mapDispatchToProps)(UsersAPIComponent);
+const UsersContainer = connect(mapStateToProps, {
+    toggleFollow,
+    setUsers,
+    setCurPage,
+    toggleLoading
+})(UsersAPIComponent);
 
 export default UsersContainer;

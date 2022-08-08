@@ -35,7 +35,7 @@
 .headerRight {
   display: flex;
   width: 410px;
-  justify-content: space-between;
+  justify-content: flex-end;
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
@@ -52,9 +52,12 @@
   border: 1px solid rgba(255, 255, 255, 0.05);
   border-radius: 4px;
   color: rgba(255, 255, 255, 0.6);
+  margin-right: 5px;
 }
 
 .btn {
+  margin-left: 5px;
+  margin-right: 5px;
   width: 130px;
   height: 32px;
   font-size: 11px;
@@ -66,4 +69,3 @@
   border-radius: 4px;
   cursor: pointer;
 }
-
