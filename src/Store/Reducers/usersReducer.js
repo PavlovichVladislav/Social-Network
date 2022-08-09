@@ -3,10 +3,10 @@ import user1 from '../../img/user1.jpg'
 import user2 from '../../img/user2.jpg'
 
 const _toggleFollow = 'TOGGLE_FOLLOW';
-const _unfollow = 'UNFOLLOW';
 const _setUsers = 'SET_USERS';
 const _setCurPage = 'SET_CURRENT_PAGE';
 const _toggleLoading = 'TOGGLE_LOADING';
+const _toggleFollowing = "TOGGLE_FOLLOWING";
 
 const initialState = {
     users: [
@@ -42,7 +42,8 @@ const initialState = {
     ],
     pageSize: 5,
     currentPage: 1,
-    loading: false
+    loading: false,
+    following: [],
 };
 
 const usersReducer = (state = initialState, action) => {
@@ -78,6 +79,14 @@ const usersReducer = (state = initialState, action) => {
                 loading: !state.loading
             }
         }
+        case _toggleFollowing: {
+            return {
+                ...state,
+                following: state.following.includes(action.payload)
+                ? state.following.filter(id => id !== action.payload)
+                : [...state.following, action.payload]
+            }
+        }
         default:
             return state;
     }
@@ -89,13 +98,6 @@ export default usersReducer;
 export const toggleFollow = (userId) => {
     return {
         type: _toggleFollow,
-        payload: userId
-    }
-}
-
-export const unfollow = (userId) => {
-    return {
-        type: _unfollow,
         payload: userId
     }
 }
@@ -115,4 +117,5 @@ export const setCurPage = (curPage) => {
 }
 
 export const toggleLoading = () => ({type: _toggleLoading})
+export const toggleFollowingProcess = (userId) => ({type: _toggleFollowing, payload: userId})
 

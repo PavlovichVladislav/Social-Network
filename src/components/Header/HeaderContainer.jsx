@@ -5,10 +5,6 @@ import { setUserData, logOut } from '../../Store/Reducers/authReducer';
 import { usersAPI } from "../../API/api";
 
 class HeaderContainer extends Component {
-    componentDidMount() {
-        console.log('mount');
-    }   
-
     signIn = () => {
         usersAPI.authRequest().then(data => {
             if (data.resultCode === 0) {

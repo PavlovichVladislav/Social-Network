@@ -1,6 +1,6 @@
 import { Component } from 'react';
 import { connect } from "react-redux";
-import { setCurPage, setUsers, toggleFollow, toggleLoading } from "../../Store/Reducers/usersReducer";
+import { setCurPage, setUsers, toggleFollow, toggleLoading, toggleFollowingProcess } from "../../Store/Reducers/usersReducer";
 
 import Users from './Users';
 import Preloader from '../common/Preloader/Preloader';
@@ -37,6 +37,8 @@ class UsersAPIContainer extends Component {
                         users={this.props.users}
                         toggleFollow={this.props.toggleFollow}
                         onUsersLoad={this.onUsersLoad}
+                        toggleFollowingProcess={this.props.toggleFollowingProcess}
+                        following={this.props.following}
                     />
                 </>
     }
@@ -47,7 +49,8 @@ const mapStateToProps = (state) => {
         users: state.usersPage.users,
         pageSize: state.usersPage.pageSize,
         currentPage: state.usersPage.currentPage,
-        loading: state.usersPage.loading
+        loading: state.usersPage.loading,
+        following: state.usersPage.following
     }
 }
 
@@ -55,5 +58,6 @@ export default connect(mapStateToProps, {
     toggleFollow,
     setUsers,
     setCurPage,
-    toggleLoading
+    toggleLoading,
+    toggleFollowingProcess
 })(UsersAPIContainer);
