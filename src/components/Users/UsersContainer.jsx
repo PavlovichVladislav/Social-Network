@@ -11,7 +11,9 @@ class UsersAPIComponent extends Component {
     componentDidMount() {
         if (this.props.users.length === 4) {
             this.props.toggleLoading();
-            axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
+            axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`, {
+                withCredentials: true
+            })
             .then(response => {
                 this.props.toggleLoading();
                 this.props.setUsers(response.data.items);
@@ -24,7 +26,9 @@ class UsersAPIComponent extends Component {
         const page = this.props.currentPage + 1;
         this.props.setCurPage(page);
         this.props.toggleLoading();
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${page}&count=${this.props.pageSize}`)
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${page}&count=${this.props.pageSize}`, {
+            withCredentials: true
+        })
         .then(response => {
             this.props.toggleLoading();
             this.props.setUsers(response.data.items);

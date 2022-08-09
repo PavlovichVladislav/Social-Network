@@ -21,7 +21,6 @@ class ProfileAPIContainer extends Component {
     }
 
     render() {
-        console.log(this.props.profile)
         return (
             this.props.profile === null 
             ? <Preloader/> 
