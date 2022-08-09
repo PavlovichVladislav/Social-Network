@@ -2,36 +2,31 @@ import { Component } from 'react';
 import { connect } from "react-redux";
 import { setCurPage, setUsers, toggleFollow, toggleLoading } from "../../Store/Reducers/usersReducer";
 
-import * as axios from "axios";
-
 import Users from './Users';
 import Preloader from '../common/Preloader/Preloader';
+import { usersAPI } from '../../API/api';
 
-class UsersAPIComponent extends Component {
+class UsersAPIContainer extends Component {
     componentDidMount() {
         if (this.props.users.length === 4) {
             this.props.toggleLoading();
-            axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`, {
-                withCredentials: true
-            })
-            .then(response => {
+            usersAPI.getUsers(this.props.currentPage, this.props.pageSize)
+            .then(data => {
                 this.props.toggleLoading();
-                this.props.setUsers(response.data.items);
+                this.props.setUsers(data.items);
             })
-            console.log('mount');
         }
     }
 
     onUsersLoad = () => {
         const page = this.props.currentPage + 1;
         this.props.setCurPage(page);
+        
         this.props.toggleLoading();
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${page}&count=${this.props.pageSize}`, {
-            withCredentials: true
-        })
-        .then(response => {
+        usersAPI.getUsers(page, this.props.pageSize)
+        .then(data => {
             this.props.toggleLoading();
-            this.props.setUsers(response.data.items);
+            this.props.setUsers(data.items);
         })
     } 
 
@@ -56,11 +51,9 @@ const mapStateToProps = (state) => {
     }
 }
 
-const UsersContainer = connect(mapStateToProps, {
+export default connect(mapStateToProps, {
     toggleFollow,
     setUsers,
     setCurPage,
     toggleLoading
-})(UsersAPIComponent);
-
-export default UsersContainer;
+})(UsersAPIContainer);

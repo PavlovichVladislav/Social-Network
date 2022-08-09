@@ -1,7 +1,7 @@
 import c from './Users.module.css';
 import userPhoto from '../../icons/user.jpg';
 import { NavLink } from "react-router-dom";
-import * as axios from "axios";
+import { usersAPI } from '../../API/api';
 
 const Users = ({users, toggleFollow, onUsersLoad}) => {
     return (
@@ -24,14 +24,9 @@ const Users = ({users, toggleFollow, onUsersLoad}) => {
                             ? <button 
                                 className={c.userBtn}
                                 onClick={() => {
-                                    axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${user.id}`, {
-                                        withCredentials: true,
-                                        headers: {
-                                            "API-KEY": "dd624455-7e20-4684-b6b6-d8c4c621a67d"
-                                        }
-                                    })
-                                    .then(response => {
-                                        if (response.data.resultCode === 0) {
+                                    usersAPI.unfollowRequest(user.id)
+                                    .then(data => {
+                                        if (data.resultCode === 0) {
                                             toggleFollow(user.id);
                                         }
                                     })
@@ -40,14 +35,9 @@ const Users = ({users, toggleFollow, onUsersLoad}) => {
                             : <button 
                                 className={c.userBtn}
                                 onClick={() => {
-                                    axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${user.id}`, {}, {
-                                        withCredentials: true,
-                                        headers: {
-                                            "API-KEY": "dd624455-7e20-4684-b6b6-d8c4c621a67d"
-                                        }
-                                    })
-                                    .then(response => {
-                                        if (response.data.resultCode === 0) {
+                                    usersAPI.followRequest(user.id)
+                                    .then(data => {
+                                        if (data.resultCode === 0) {
                                             toggleFollow(user.id);
                                         }
                                     })
@@ -56,6 +46,7 @@ const Users = ({users, toggleFollow, onUsersLoad}) => {
                     </div>
                 )
             })}
+
             <button 
                 className={c.userBtn}
                 onClick={() => {onUsersLoad()}}

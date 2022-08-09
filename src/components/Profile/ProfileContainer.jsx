@@ -5,19 +5,19 @@ import {
     useNavigate,
     useParams,
 } from "react-router-dom";
+
 import Profile from './Profile';
-import * as axios from "axios";
-import { setUserProfile } from '../../Store/Reducers/profileReducer';
 import Preloader from '../common/Preloader/Preloader';
+
+import { setUserProfile } from '../../Store/Reducers/profileReducer';
+import { usersAPI } from '../../API/api';
 
 class ProfileAPIContainer extends Component {
     componentDidMount() {
         const userId = this.props.router.params.userId;
-        axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${userId}`)
-            .then(response => {
-                this.props.setUserProfile(response.data);
-            })
-            console.log('mount');
+        usersAPI.getUserPage(userId).then(data => {
+            this.props.setUserProfile(data);
+        })
     }
 
     render() {
