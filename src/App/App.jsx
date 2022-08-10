@@ -11,6 +11,7 @@ import Navbar from '../components/Navbar/Navbar';
 import ProfileContainer from '../components/Profile/ProfileContainer';
 import DialogsContainer from '../components/Dialogs/DialogsContainer';
 import UsersContainer from '../components/Users/UsersContainer';
+import Login from '../components/Login/Login';
 
 const App = (props) => {
   return (
@@ -34,7 +35,7 @@ const App = (props) => {
             />
             <Route
               path="/login" 
-              element={<UsersContainer/>} 
+              element={<Login/>} 
             />
           </Routes>
         </div>
