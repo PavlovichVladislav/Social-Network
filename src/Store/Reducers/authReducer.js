@@ -1,5 +1,8 @@
+import { usersAPI } from "../../API/api";
+
 const _setUserData = 'SET_USER_DATA';
 const _logOut ="LOG_OUT";
+
 const initialState = {
     messages: [],
     data: {
@@ -30,6 +33,14 @@ const authReducer = (state = initialState, action) => {
         default:
             return state;
     }
+}
+
+export const logIn = () => (dispatch) => {
+    usersAPI.authRequest().then(data => {
+        if (data.resultCode === 0) {
+            dispatch(setUserData(data));
+        }
+    })
 }
 
 export const setUserData = (data) => {  

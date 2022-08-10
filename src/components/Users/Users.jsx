@@ -1,14 +1,15 @@
 import c from './Users.module.css';
 import userPhoto from '../../icons/user.jpg';
 import { NavLink } from "react-router-dom";
-import { usersAPI } from '../../API/api';
 
-const Users = ({users, toggleFollow, onUsersLoad, toggleFollowingProcess, following}) => {
+const Users = ({users, onUsersLoad, following, follow, unfollow}) => {
     return (
         <>
             {users.map( user => {
                 let photoUrl = '';
-                user.photos.small !== null ? photoUrl = user.photos.small : photoUrl = userPhoto;
+                user.photos.small !== null 
+                    ? photoUrl = user.photos.small 
+                    : photoUrl = userPhoto;
                 
                 return (
                     <div className={c.user}>
@@ -21,34 +22,18 @@ const Users = ({users, toggleFollow, onUsersLoad, toggleFollowingProcess, follow
                         </div>
                         {user.followed
                             ? 
-                            <button
-                                disabled={following.some(id => id === user.id)} 
-                                className={c.userBtn}
-                                onClick={() => {
-                                    toggleFollowingProcess(user.id);
-                                    usersAPI.unfollowRequest(user.id)
-                                    .then(data => {
-                                        if (data.resultCode === 0) {
-                                            toggleFollow(user.id);
-                                        }
-                                        toggleFollowingProcess(user.id);
-                                    })
-                                }}
-                            >unfollow</button> 
-                            : <button
-                                disabled={following.some(id => id === user.id)}  
-                                className={c.userBtn}
-                                onClick={() => {
-                                    toggleFollowingProcess(user.id);
-                                    usersAPI.followRequest(user.id)
-                                    .then(data => {
-                                        if (data.resultCode === 0) {
-                                            toggleFollow(user.id);
-                                        }
-                                        toggleFollowingProcess(user.id);
-                                    })
-                                }}
-                            >follow</button>}
+                                <button
+                                    disabled={following.some(id => id === user.id)} 
+                                    className={c.userBtn}
+                                    onClick={() => {unfollow(user.id)}}
+                                >unfollow</button> 
+                            : 
+                                <button
+                                    disabled={following.some(id => id === user.id)}  
+                                    className={c.userBtn}
+                                    onClick={() => {follow(user.id)}}
+                                >follow</button>
+                        }
                     </div>
                 )
             })}

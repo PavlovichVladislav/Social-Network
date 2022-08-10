@@ -1,23 +1,16 @@
 import { Component } from 'react';
 import { connect } from "react-redux";
-import {
-    useLocation,
-    useNavigate,
-    useParams,
-} from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 
 import Profile from './Profile';
 import Preloader from '../common/Preloader/Preloader';
 
-import { setUserProfile } from '../../Store/Reducers/profileReducer';
-import { usersAPI } from '../../API/api';
+import { getUserPage } from '../../Store/Reducers/profileReducer';
 
 class ProfileAPIContainer extends Component {
     componentDidMount() {
         const userId = this.props.router.params.userId;
-        usersAPI.getUserPage(userId).then(data => {
-            this.props.setUserProfile(data);
-        })
+        this.props.getUserPage(userId);
     }
 
     render() {
@@ -49,6 +42,6 @@ function withRouter(Component) {
     return ComponentWithRouterProp;
 }
 
-export default connect(mapStateToProps, {setUserProfile})(withRouter(ProfileAPIContainer));
+export default connect(mapStateToProps, {getUserPage})(withRouter(ProfileAPIContainer));
 
 

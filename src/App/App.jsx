@@ -32,6 +32,10 @@ const App = (props) => {
               path="/users" 
               element={<UsersContainer/>} 
             />
+            <Route
+              path="/login" 
+              element={<UsersContainer/>} 
+            />
           </Routes>
         </div>
       </div>

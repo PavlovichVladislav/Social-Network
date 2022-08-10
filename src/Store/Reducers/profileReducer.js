@@ -1,3 +1,5 @@
+import { usersAPI } from '../../API/api';
+
 import camera_img from '../../icons/camera_25.png';
 import like_img from '../../icons/like.svg';
 
@@ -56,10 +58,10 @@ const initialState = {
     profile: null
 }
 
-export const profileReducer = (state = initialState, action) => {
+const profileReducer = (state = initialState, action) => {
     switch(action.type) {
         case addPost: {
-            let newPost = {
+            const newPost = {
                 name: 'Владислав Павлович',
                 img: camera_img,
                 date: `${new Date().getDate()} ${new Date().getMonth()} ${new Date().getFullYear()}`,
@@ -87,7 +89,6 @@ export const profileReducer = (state = initialState, action) => {
                 profile: action.payload
             }
         }
-
         default: {
             break;
         }
@@ -97,18 +98,16 @@ export const profileReducer = (state = initialState, action) => {
     return state;
 }
 
-export const addPostActionCreator = () => ({type: addPost});
-    
-export const changePostActionCreator = (value) => {
-    return {
-        type: changePost,
-        payload: value
-    }
+export const getUserPage = (userId) => (dispatch) => {
+    usersAPI.getUserPage(userId)
+    .then(data => {
+        dispatch(setUserProfile(data));
+    })
 }
 
-export const setUserProfile = (profile) => {
-    return {
-        type: _setUserProfile,
-        payload: profile
-    }
-} 
+
+export const addPostActionCreator = () => ({type: addPost});
+export const changePostActionCreator = (value) => ({type: changePost, payload: value});
+export const setUserProfile = (profile) => ({type: _setUserProfile, payload: profile});
+
+export default profileReducer;
