@@ -1,4 +1,4 @@
-.profile-info {
+.profileInfo {
   padding: 10px 20px;
   width: 580px;
   border: 1px solid gray;
@@ -8,23 +8,23 @@
   background: white;
 }
 
-.profile-info__content {
+.profileInfoContent {
   display: grid;
   grid-template-columns: 8fr 4fr;
 }
 
-.profile-info__divider {
+.profileInfoDivider {
     margin-top: 10px;
     width: 100%;
     height: 1px;
     background: gray;
 }
 
-.profile-info__date {
+.profileInfoDate {
   margin-top: 10px;
 }
 
-.profile-info__name {
+.profileInfoName {
   margin: 0;
   font-weight: 400;
   font-size: 24px;

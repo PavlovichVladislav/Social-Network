@@ -1,4 +1,4 @@
-import { usersAPI } from '../../API/api';
+import { usersAPI, profileAPI } from '../../API/api';
 
 import camera_img from '../../icons/camera_25.png';
 import like_img from '../../icons/like.svg';
@@ -14,6 +14,7 @@ import friend4_img from '../../icons/friends/friend_4.jpg';
 const addPost = 'ADD-POST';
 const changePost = 'CHANGE-POST';
 const _setUserProfile = 'SET_USER_PROFILE';
+const _setStatus ="SET_STATUS";
 
 const initialState = {
     postStore: [
@@ -55,7 +56,8 @@ const initialState = {
             name: 'Илья'
         },
     ],
-    profile: null
+    profile: null,
+    status: '',
 }
 
 const profileReducer = (state = initialState, action) => {
@@ -89,6 +91,12 @@ const profileReducer = (state = initialState, action) => {
                 profile: action.payload
             }
         }
+        case _setStatus: {
+            return {
+                ...state,
+                status: action.payload
+            }
+        }
         default: {
             break;
         }
@@ -99,15 +107,31 @@ const profileReducer = (state = initialState, action) => {
 }
 
 export const getUserPage = (userId) => (dispatch) => {
-    usersAPI.getUserPage(userId)
+    profileAPI.getUserPage(userId)
     .then(data => {
         dispatch(setUserProfile(data));
     })
 }
 
+export const getStatus = (userId) => (dispatch) => {
+    profileAPI.getStatus(userId)
+    .then(data => {
+        dispatch(setStatus(data));
+    })
+}
+
+export const updateStatus = (status) => (dispatch) => {
+    profileAPI.updateStatus(status)
+    .then(data => {
+        if (data.resultCode === 0) {
+            dispatch(setStatus(status));
+        }
+    })
+}
 
 export const addPostActionCreator = () => ({type: addPost});
 export const changePostActionCreator = (value) => ({type: changePost, payload: value});
 export const setUserProfile = (profile) => ({type: _setUserProfile, payload: profile});
+export const setStatus = (status) => ({type: _setStatus, payload: status});
 
 export default profileReducer;

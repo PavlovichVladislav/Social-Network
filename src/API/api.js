@@ -1,6 +1,6 @@
 import * as axios from "axios";
 
-const istance = axios.create({
+const instance = axios.create({
     baseURL: 'https://social-network.samuraijs.com/api/1.0/',
     withCredentials: true,
     headers: {
@@ -10,23 +10,38 @@ const istance = axios.create({
 
 export const usersAPI = {
     getUsers(currentPage = 1, pageSize = 5) {
-        return istance.get(`users?page=${currentPage}&count=${pageSize}`)
+        return instance.get(`users?page=${currentPage}&count=${pageSize}`)
         .then(response => response.data);
     },
     followRequest(userId) {
-        return istance.post(`follow/${userId}`)
+        return instance.post(`follow/${userId}`)
         .then(response => response.data);
     },
     unfollowRequest(userId) {
-        return istance.delete(`follow/${userId}`)
+        return instance.delete(`follow/${userId}`)
         .then(response => response.data);
     },
     authRequest() {
-        return istance.get(`auth/me`)
+        return instance.get(`auth/me`)
         .then(response => response.data);
     },
-    getUserPage (userId) {
-        return istance.get(`profile/${userId}`)
+    getUserPage(userId) {
+        console.log('method is deprecated');    
+        return profileAPI.getUserPage(userId)
+    },
+}
+
+export const profileAPI = {
+    getUserPage(userId) {
+        return instance.get(`profile/${userId}`)
         .then(response => response.data);
     },
+    getStatus(userId) {
+        return instance.get(`profile/status/${userId}`)
+        .then(response => response.data);
+    },
+    updateStatus(status) {
+        return instance.put(`/profile/status`, {status})
+        .then(response => response.data);
+    }
 }
