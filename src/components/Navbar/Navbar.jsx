@@ -1,17 +1,18 @@
 import c from "./Navbar.module.css"
 
 import { NavLink } from "react-router-dom";
+import { connect } from "react-redux";
 
 const setActiveClass = ({ isActive }) => 
   isActive ? c.active : undefined 
 
-const Navbar = () => {
+const Navbar = ({userId}) => {
     return (
         <nav className={c.nav}>
         <ul>
           <li className={c.navItem}>
             <NavLink 
-              to="/profile/25264"
+              to={`/profile/${userId}`}
               className={setActiveClass}>
                 Profile
             </NavLink>
@@ -57,4 +58,6 @@ const Navbar = () => {
     )
 }
 
-export default Navbar;
+const mapStateToProps = (state) => ({userId: state.auth.userId});
+
+export default connect(mapStateToProps,null)(Navbar);

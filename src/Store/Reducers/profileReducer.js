@@ -1,4 +1,4 @@
-import { usersAPI, profileAPI } from '../../API/api';
+import { profileAPI } from '../../API/api';
 
 import camera_img from '../../icons/camera_25.png';
 import like_img from '../../icons/like.svg';
@@ -11,8 +11,7 @@ import friend2_img from '../../icons/friends/friend_2.jpg';
 import friend3_img from '../../icons/friends/friend_3.jpg';
 import friend4_img from '../../icons/friends/friend_4.jpg';
 
-const addPost = 'ADD-POST';
-const changePost = 'CHANGE-POST';
+const _addPost = 'ADD-POST';
 const _setUserProfile = 'SET_USER_PROFILE';
 const _setStatus ="SET_STATUS";
 
@@ -37,7 +36,6 @@ const initialState = {
             like: like_img
         }, 
     ],
-    newPostText: '',
     friendsStore: [
         {
             img: friend1_img,
@@ -62,12 +60,12 @@ const initialState = {
 
 const profileReducer = (state = initialState, action) => {
     switch(action.type) {
-        case addPost: {
+        case _addPost: {
             const newPost = {
                 name: 'Владислав Павлович',
                 img: camera_img,
                 date: `${new Date().getDate()} ${new Date().getMonth()} ${new Date().getFullYear()}`,
-                text: state.newPostText,
+                text: action.payload,
                 likeCount: 6,
                 id: 3,
                 like: like_img
@@ -76,13 +74,6 @@ const profileReducer = (state = initialState, action) => {
             return {
                 ...state,
                 postStore: [...state.postStore, newPost],
-                newPostText: '',
-            };
-        }
-        case changePost: {
-            return {
-                ...state,
-                newPostText: action.payload
             };
         }
         case _setUserProfile: {
@@ -129,8 +120,7 @@ export const updateStatus = (status) => (dispatch) => {
     })
 }
 
-export const addPostActionCreator = () => ({type: addPost});
-export const changePostActionCreator = (value) => ({type: changePost, payload: value});
+export const addPost = (newPostText) => ({type: _addPost, payload: newPostText});
 export const setUserProfile = (profile) => ({type: _setUserProfile, payload: profile});
 export const setStatus = (status) => ({type: _setStatus, payload: status});
 

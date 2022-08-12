@@ -20,15 +20,18 @@ export const usersAPI = {
     unfollowRequest(userId) {
         return instance.delete(`follow/${userId}`)
         .then(response => response.data);
-    },
+    }
+}
+
+export const authAPI = {
     authRequest() {
         return instance.get(`auth/me`)
         .then(response => response.data);
     },
-    getUserPage(userId) {
-        console.log('method is deprecated');    
-        return profileAPI.getUserPage(userId)
-    },
+    login(data) {
+        return instance.post('auth/login', data)
+        .then(response => response.data)
+    }
 }
 
 export const profileAPI = {

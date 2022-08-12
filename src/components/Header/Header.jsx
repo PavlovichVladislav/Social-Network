@@ -2,7 +2,7 @@ import c from "./Header.module.css"
 import logo from '../../img/logo.svg' 
 import { NavLink } from "react-router-dom";
 
-const Header = ({email, signIn, isAuth, logOut}) => {
+const Header = ({email, isAuth, logOut}) => {
     return (
       <header className={c.header}>
         <div className={c.headerLeft}>
@@ -23,10 +23,7 @@ const Header = ({email, signIn, isAuth, logOut}) => {
           {isAuth === false 
           ? <>
               <NavLink to={'/login'}>
-                <button 
-                  className={c.btn}
-                  onClick={signIn}
-                > SIGN IN</button>
+                <button className={c.btn}> SIGN IN</button>
               </NavLink>
               <NavLink to={'/signUp'}>
                 <button className={c.btn}>CREATE ACCOUNT</button>

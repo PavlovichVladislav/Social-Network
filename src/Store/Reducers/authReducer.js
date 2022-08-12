@@ -1,7 +1,8 @@
-import { usersAPI } from "../../API/api";
+import { authAPI } from "../../API/api";
 
 const _setUserData = 'SET_USER_DATA';
-const _logOut ="LOG_OUT";
+const _logOut = "LOG_OUT";
+const _setAuth = "SET_AUTH";
 
 const initialState = {
     messages: [],
@@ -11,7 +12,8 @@ const initialState = {
       login: null
     },
     loading: true,
-    isAuth: false
+    isAuth: false,
+    userId: null
 };
 
 const authReducer = (state = initialState, action) => {
@@ -22,6 +24,13 @@ const authReducer = (state = initialState, action) => {
                 messages: [...action.payload.messages],
                 data: {...action.payload.data},
                 isAuth: true
+            }
+        }
+        case _setAuth: {
+            return {
+                ...state,
+                isAuth: true,
+                userId: action.payload
             }
         }
         case _logOut: {
@@ -35,12 +44,20 @@ const authReducer = (state = initialState, action) => {
     }
 }
 
-export const logIn = () => (dispatch) => {
-    usersAPI.authRequest().then(data => {
+export const login = (authData) => (dispatch) => {
+    authAPI.login(authData)
+    .then(data => {
         if (data.resultCode === 0) {
-            dispatch(setUserData(data));
+            dispatch(setAuth(data.data.userId))
         }
     })
+    .then(
+        authAPI.authRequest().then( data => {
+            if (data.resultCode === 0) {
+                dispatch(setUserData(data));
+            }
+        })
+    )
 }
 
 export const setUserData = (data) => {  
@@ -50,6 +67,13 @@ export const setUserData = (data) => {
             messages: data.messages,
             data: data.data,
         }
+    }
+}
+
+export const setAuth = (userId) => {
+    return {
+        type: _setAuth,
+        payload: userId
     }
 }
 

@@ -2,7 +2,7 @@ import { connect } from "react-redux";
 
 import DialogsPannel from "./DialogsPannel";
 
-import { changeRecipientActionCreator, sendMessageActionCreator, changeMessageActionCreator } from "../../../Store/Reducers/messageReducer";
+import { sendMessage } from "../../../Store/Reducers/messageReducer";
 
 const mapStateToProps = (state) => {
     return {
@@ -11,20 +11,6 @@ const mapStateToProps = (state) => {
     }
 }
 
-const mapDispatchToProps = (dispatch) => {
-    return {
-        sendMessage: () => {
-            dispatch(sendMessageActionCreator());
-        },
-        changeRecipient: (recipient) => {
-            dispatch(changeRecipientActionCreator(recipient))
-        },
-        changeMessage: (message) => {
-            dispatch(changeMessageActionCreator(message))
-        }
-    }
-}
-
-const DialogsPannelContainer = connect(mapStateToProps, mapDispatchToProps)(DialogsPannel);
+const DialogsPannelContainer = connect(mapStateToProps, { sendMessage })(DialogsPannel);
 
 export default DialogsPannelContainer;
