@@ -1,28 +1,27 @@
 import c from './SubmitBox.module.css';
 
 import React from 'react';
-import { Formik } from 'formik';
+import { Formik, Form, Field} from 'formik';
+import { validatePost } from '../../../../utils/validators';
 
 const SubmitBox = ({addPost}) => {
+    let blur = true;
     return (
         <Formik
             initialValues={{ postText: ''}}
-            validate={null}
             onSubmit={(values, { setSubmitting}) => {
                 addPost(values.postText);
                 setSubmitting(false);
             }}
         >
-            {({
-                values,
-                errors,
-                touched,
-                handleChange,
-                handleBlur,
-                handleSubmit,
-                isSubmitting,
-            }) => (
-                <form onSubmit={handleSubmit} className={c.submitBox}>
+            {({isSubmitting, errors, validateForm, setErrors}) => (
+                <Form 
+                    className={errors.postText 
+                                ?c.submitBox + ' ' + c.submitBoxError 
+                                : c.submitBox}
+                    onBlur={() => {setErrors({postText: null})}}
+                    
+                >
                     <div className={c.submitBoxArea}>
                         <div>
                             <img 
@@ -31,25 +30,24 @@ const SubmitBox = ({addPost}) => {
                                 className={c.submitBoxImg}
                             />
                         </div>
-                        <textarea
-                            type='текст'
+                        <Field
+                            type='textarea'
                             name='postText'
-                            onChange={handleChange}
-                            onBlur={handleBlur}
-                            value={values.postText}
                             placeholder='Что нового?'
-                            className={c.submitBoxText}
-                        />  
+                            validate={validatePost(30)}
+                            className={ c.submitBoxText }
+                        />
                     </div>
+
                     <div className={c.submitBoxButtons}>
                         <button 
                             type="submit" 
-                            disabled={isSubmitting}
+                            disabled={isSubmitting || errors.postText}
                             className={c.submitBoxBtn}
                         > Send </button> 
-                        <button className={c.submitBoxBtn}>Clear</button> 
+                        <button type='reset' className={c.submitBoxBtn}>Clear</button> 
                     </div>
-                </form>
+                </Form>
             )}
         </Formik>
 

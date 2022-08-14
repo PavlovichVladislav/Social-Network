@@ -14,26 +14,26 @@ const LoginForm = ({login}) => {
     return (
         <Formik
             initialValues={{ email: '', password: '', rememberMe: false}}
-            // validate={values => {
-            //   const errors = {};
-            //   if (!values.email) {
-            //     errors.email = 'Required';
-            //   } else if (
-            //     !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
-            //   ) {
-            //     errors.email = 'Invalid email address';
-            //   }
-            //   return errors;
-            // }}
+            validate={values => {
+              const errors = {};
+
+              if (!values.email) {
+                errors.email = 'Required';
+              } else if (
+                !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
+              ) {
+                errors.email = 'Invalid email address';
+              }
+
+              if (!values.password) {
+                errors.password = 'Required';
+              }
+
+              return errors;
+            }}
             onSubmit={(values, { setSubmitting }) => {
                 login(values);
-                // console.log('hello');
                 setSubmitting(false);
-
-                // setTimeout(() => {
-                // alert(JSON.stringify(values, null, 2));
-                // setSubmitting(false);
-                // }, 400);
             }}
         >
             {/* {({ isSubmitting }) => (

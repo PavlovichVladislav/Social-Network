@@ -2,11 +2,20 @@ import { Formik } from 'formik';
 
 import c from "./DialogsPannel.module.css";
 
+import { requiredField, validatePost } from '../../../utils/validators';
+
 const DialogsPannel = ({sendMessage}) => {
     return (
         <Formik
             initialValues={{ recipient: '', message: '' }}
-            validate= {null}
+            validate= {values => {
+                const errors = {};
+
+                errors.message = requiredField('Необходимо написать сообщение')(values.message);
+                errors.recipient = validatePost(20)(values.message);
+
+                return errors;
+            }}
             onSubmit={(values, { setSubmitting }) => {
                 sendMessage(values);
                 setSubmitting(false);
@@ -20,9 +29,11 @@ const DialogsPannel = ({sendMessage}) => {
                 handleBlur,
                 handleSubmit,
                 isSubmitting,
+                
             }) => (
                 <form className={c.dialogsPannel} onSubmit={handleSubmit}>
                     <input
+                        className={errors.recipient ? c.error : null}
                         type='text'
                         name="recipient"
                         onChange={handleChange}
@@ -31,6 +42,7 @@ const DialogsPannel = ({sendMessage}) => {
                         placeholder="Кому?" 
                     />
                     <textarea
+                        className={errors.message ? c.error : null}
                         type='text'
                         name="message"
                         onChange={handleChange}
@@ -48,8 +60,5 @@ const DialogsPannel = ({sendMessage}) => {
     )
 }
 
-// onChange={(e) => {changeRecipient(e.target.value)}}
-// onChange={(e) => {changeMessage(e.target.value)}}
-// onClick={sendMessage}
 export default DialogsPannel;
  

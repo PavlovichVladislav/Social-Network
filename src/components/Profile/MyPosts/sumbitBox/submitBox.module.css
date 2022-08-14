@@ -7,6 +7,10 @@
     border-radius: 5px;
 }
 
+.submitBoxError {
+    border: 1px solid red;
+}
+
 .submitBoxArea {
     display: flex;
 }
