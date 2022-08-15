@@ -5,7 +5,6 @@ import { Formik, Form, Field} from 'formik';
 import { validatePost } from '../../../../utils/validators';
 
 const SubmitBox = ({addPost}) => {
-    let blur = true;
     return (
         <Formik
             initialValues={{ postText: ''}}
@@ -14,13 +13,11 @@ const SubmitBox = ({addPost}) => {
                 setSubmitting(false);
             }}
         >
-            {({isSubmitting, errors, validateForm, setErrors}) => (
+            {({isSubmitting, errors, setErrors}) => (
                 <Form 
                     className={errors.postText 
                                 ?c.submitBox + ' ' + c.submitBoxError 
                                 : c.submitBox}
-                    onBlur={() => {setErrors({postText: null})}}
-                    
                 >
                     <div className={c.submitBoxArea}>
                         <div>
@@ -35,6 +32,7 @@ const SubmitBox = ({addPost}) => {
                             name='postText'
                             placeholder='Что нового?'
                             validate={validatePost(30)}
+                            onBlur={() => {setErrors({postText: null})}}
                             className={ c.submitBoxText }
                         />
                     </div>

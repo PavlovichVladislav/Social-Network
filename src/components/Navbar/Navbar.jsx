@@ -6,7 +6,7 @@ import { connect } from "react-redux";
 const setActiveClass = ({ isActive }) => 
   isActive ? c.active : undefined 
 
-const Navbar = ({userId}) => {
+const Navbar = ({userId}) => {  
     return (
         <nav className={c.nav}>
         <ul>
@@ -58,6 +58,10 @@ const Navbar = ({userId}) => {
     )
 }
 
-const mapStateToProps = (state) => ({userId: state.auth.userId});
+const mapStateToProps = (state) => {
+  return {
+    userId: state.auth.id
+  }
+};
 
 export default connect(mapStateToProps,null)(Navbar);

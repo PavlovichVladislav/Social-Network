@@ -1,30 +1,40 @@
 import { authAPI } from "../../API/api";
 
 const _setUserData = 'SET_USER_DATA';
-const _deleteUserData = "DELETE_USER_DATA";
 const _setAuth = "SET_AUTH";
+const _setAuthError ="SET_AUTH_ERROR";
 
 const initialState = {
     messages: [],
     email: null,
     login: null,
     isAuth: false,
-    id: null
+    id: null,
+    authError: false
 };
 
 const authReducer = (state = initialState, action) => {
     switch(action.type) {
         case _setUserData: {
+            console.log(action.payload);
             return {
                 ...state,
-                ...action.payload
+                ...action.payload,
+                authError: false
             }
         }
         case _setAuth: {
             return {
                 ...state,
                 isAuth: true,
-                userId: action.payload
+                userId: action.payload,
+                authError: false
+            }
+        }
+        case _setAuthError: {
+            return {
+                ...state,
+                authError: true
             }
         }
         default:
@@ -38,12 +48,14 @@ export const login = (authData) => (dispatch) => {
         if (data.resultCode === 0) {
             dispatch(setAuth(data.data.userId))
             dispatch(authMe());
+        } else if (data.resultCode === 1) {
+            dispatch(setAuthError());
         }
     })
 }
 
 export const authMe = () => (dispatch) => {
-    authAPI.authRequest().then( data  => {
+    return authAPI.authRequest().then( data  => {
         if (data.resultCode === 0) {
             dispatch(setUserData({...data, ...data.data}, true));
         }
@@ -81,6 +93,12 @@ export const setAuth = (userId) => {
     return {
         type: _setAuth,
         payload: userId
+    }
+}
+
+export const setAuthError = () => {
+    return {
+        type: _setAuthError
     }
 }
 
