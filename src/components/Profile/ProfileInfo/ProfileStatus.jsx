@@ -35,8 +35,14 @@ class ProfileStatus extends Component {
         return (
             <>
                 {this.state.editMode
-                    ?<input autoFocus={true} onChange={(e) => {this.onStatusChange(e.target.value)}} onBlur={() => {this.deactivateEditMode()}} value={this.state.status}/>
-                    :<span onDoubleClick={() => {this.activateEditMode()}}>{this.props.status}</span>
+                    ?<input 
+                        autoFocus={true} 
+                        onChange={(e) => {this.onStatusChange(e.target.value)}} 
+                        onBlur={() => {this.deactivateEditMode()}} 
+                        value={this.state.status}/>
+                    :<span 
+                        onDoubleClick={() => {this.activateEditMode()}}
+                    > {this.props.status} </span>
                 }
             </>
         )

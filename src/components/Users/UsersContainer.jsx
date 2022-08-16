@@ -4,6 +4,7 @@ import { getUsers, follow, unfollow } from "../../Store/Reducers/usersReducer";
 
 import Users from './Users';
 import Preloader from '../common/Preloader/Preloader';
+import { currentPageSelector, pageSizeSelector, userFollowingSelector, usersLoadingSelector, usersSelector } from '../../Store/Selectors/usersSelectors';
 
 class UsersAPIContainer extends Component {
     componentDidMount() {
@@ -32,11 +33,11 @@ class UsersAPIContainer extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        users: state.usersPage.users,
-        pageSize: state.usersPage.pageSize,
-        currentPage: state.usersPage.currentPage,
-        loading: state.usersPage.loading,
-        following: state.usersPage.following
+        users: usersSelector(state),
+        pageSize: pageSizeSelector(state),
+        currentPage: currentPageSelector(state),
+        loading: usersLoadingSelector(state),
+        following: userFollowingSelector(state)
     }
 }
 

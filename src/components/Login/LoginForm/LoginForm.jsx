@@ -1,6 +1,5 @@
 import c from './LoginForm.module.css';
 import { Formik, Form, Field } from 'formik';
-import { validateEmail, requiredField } from '../../../utils/validators';
 
 const LoginForm = ({login, authError}) => {
     return (

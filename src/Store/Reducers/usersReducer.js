@@ -94,12 +94,11 @@ const usersReducer = (state = initialState, action) => {
 
 }
 
-// thunk creators
-export const getUsers = (currentPage, pageSize) => (dispatch) => {
+export const getUsers = (page, pageSize) => (dispatch) => {
     dispatch(toggleLoading());
-    usersAPI.getUsers(currentPage, pageSize)
+    usersAPI.getUsers(page, pageSize)
     .then(data => {
-        dispatch(setCurPage(currentPage + 1));
+        dispatch(setCurPage(page + 1));
         dispatch(toggleLoading());
         dispatch(setUsers(data.items));
     })
@@ -127,7 +126,6 @@ export const unfollow = (userId) => (dispatch) => {
         })
     }
 
-// action creators
 export const toggleFollow = (userId) => ({type: _toggleFollow, payload: userId});
 export const setUsers = (users) => ({type: _setUsers, payload: users});
 export const setCurPage = (curPage) => ({type: _setCurPage, payload: curPage});
