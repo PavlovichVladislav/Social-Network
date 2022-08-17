@@ -1,52 +1,33 @@
-import { Component } from "react";
+import { useEffect } from "react";
+import { useState } from "react";
 
-class ProfileStatus extends Component {
-    state = {
-        editMode: false,
-        status: this.props.status
+const ProfileStatusHooks = ({status, updateStatus}) => {
+    const [editMode, setEditMode] = useState(false);
+    const [localStatus, setStatus] = useState(status);
+
+    const deactivateEditMode = () => {
+        setEditMode(false);
+        updateStatus(localStatus);
     }
 
-    deactivateEditMode = () => {
-        this.setState({
-            editMode: false, 
-        });
-        this.props.updateStatus(this.state.status);
-    }
+    useEffect(() => {
+        setStatus(status);
+    }, [status])
 
-    componentDidUpdate(prevProps) {
-        if (prevProps.status !== this.props.status) {
-            this.setState({
-                status: this.props.status
-            })
-        }
-    }
-
-    onStatusChange = (newStatus) => {
-        this.setState({
-            status: newStatus, 
-        });
-    }
-
-    activateEditMode = () => {
-        this.setState({editMode: true})
-    }
-
-    render() {
-        return (
-            <>
-                {this.state.editMode
-                    ?<input 
-                        autoFocus={true} 
-                        onChange={(e) => {this.onStatusChange(e.target.value)}} 
-                        onBlur={() => {this.deactivateEditMode()}} 
-                        value={this.state.status}/>
-                    :<span 
-                        onDoubleClick={() => {this.activateEditMode()}}
-                    > {this.props.status} </span>
-                }
-            </>
-        )
-    }
+    return (
+        <>
+            {editMode
+                ?<input 
+                    autoFocus={true} 
+                    onChange={(e) => {setStatus(e.target.value)}} 
+                    onBlur={() => {deactivateEditMode()}} 
+                    value={localStatus}/>
+                :<span 
+                    onDoubleClick={() => {setEditMode(true)}}
+                > {status} </span>
+            }
+        </>
+    )
 }
 
-export default ProfileStatus;
+export default ProfileStatusHooks;

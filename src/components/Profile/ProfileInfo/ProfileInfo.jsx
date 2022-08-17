@@ -1,12 +1,12 @@
 import c from "./ProfileInfo.module.css"
+import ProfileStatusOld from "./ProfileStatusOld";
 import ProfileStatus from "./ProfileStatus";
-import ProfileStatusHooks from "./ProfileStatusHooks";
 
 const ProfileInfo = ({profile, status, updateStatus}) => {
     return (
         <div className={c.profileInfo}>
             <h1 className={c.profileInfoName}>{profile.fullName}</h1>
-            <ProfileStatusHooks
+            <ProfileStatus
                 status={status}
                 updateStatus={updateStatus}
             />

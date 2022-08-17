@@ -14,6 +14,7 @@ import friend4_img from '../../icons/friends/friend_4.jpg';
 const _addPost = 'ADD-POST';
 const _setUserProfile = 'SET_USER_PROFILE';
 const _setStatus ="SET_STATUS";
+const _deletePost = "DELETE_POST";
 
 const initialState = {
     postStore: [
@@ -76,6 +77,12 @@ const profileReducer = (state = initialState, action) => {
                 postStore: [...state.postStore, newPost],
             };
         }
+        case _deletePost: {
+            return {
+                ...state,
+                postStore: state.postStore.filter(post => post.id !== action.payload)
+            }
+        }
         case _setUserProfile: {
             return {
                 ...state, 
@@ -121,6 +128,7 @@ export const updateStatus = (status) => (dispatch) => {
 }
 
 export const addPost = (newPostText) => ({type: _addPost, payload: newPostText});
+export const deletePost = (postId) => ({type: _deletePost, payload: postId});
 export const setUserProfile = (profile) => ({type: _setUserProfile, payload: profile});
 export const setStatus = (status) => ({type: _setStatus, payload: status});
 

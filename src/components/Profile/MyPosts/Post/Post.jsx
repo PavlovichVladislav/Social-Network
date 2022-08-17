@@ -1,6 +1,6 @@
 import c from "./Post.module.css";
 
-const Post = ({img, name, date, text, like, like_count}) => {
+const Post = ({img, name, date, text, like, like_count, deletePost}) => {
     return (
         <div className={c.post}>
             <div className={c.postHeader}>
@@ -23,6 +23,7 @@ const Post = ({img, name, date, text, like, like_count}) => {
                         {like_count}
                     </div>
                 </div>
+                <button onClick={deletePost}>delete</button>
             </div>
         </div>
     )
