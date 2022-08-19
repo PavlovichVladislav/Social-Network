@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useState } from "react";
 
-const ProfileStatusHooks = ({status, updateStatus}) => {
+const ProfileStatusHooks = ({status, updateStatus, owner}) => {
     const [editMode, setEditMode] = useState(false);
     const [localStatus, setStatus] = useState(status);
 
@@ -23,7 +23,7 @@ const ProfileStatusHooks = ({status, updateStatus}) => {
                     onBlur={() => {deactivateEditMode()}} 
                     value={localStatus}/>
                 :<span 
-                    onDoubleClick={() => {setEditMode(true)}}
+                    onDoubleClick={() => {if (owner) setEditMode(true)}}
                 > {status} </span>
             }
         </>

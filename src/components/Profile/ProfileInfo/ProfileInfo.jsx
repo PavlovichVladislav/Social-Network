@@ -2,13 +2,14 @@ import c from "./ProfileInfo.module.css"
 import ProfileStatusOld from "./ProfileStatusOld";
 import ProfileStatus from "./ProfileStatus";
 
-const ProfileInfo = ({profile, status, updateStatus}) => {
+const ProfileInfo = ({profile, status, updateStatus, owner}) => {
     return (
         <div className={c.profileInfo}>
             <h1 className={c.profileInfoName}>{profile.fullName}</h1>
             <ProfileStatus
                 status={status}
                 updateStatus={updateStatus}
+                owner={owner}
             />
             <div className={c.profileInfoDivider}></div>
             <div className={c.profileInfoContent}>

@@ -15,6 +15,7 @@ const ADD_POST = 'social-network/posts/ADD_POST';
 const SET_USER_PROFILE = 'social-network/posts/SET_USER_PROFILE';
 const SET_STATUS ="social-network/posts/SET_STATUS";
 const DELETE_POST = "social-network/posts/DELETE_POST";
+const SET_USER_PHOTO = "social-network/posts/SET_USER_PHOTO";
 
 const initialState = {
     postStore: [
@@ -99,6 +100,12 @@ const profileReducer = (state = initialState, action) => {
                 status: action.payload
             }
         }
+        case SET_USER_PHOTO: {
+            return {
+                ...state,
+                profile: {...state.profile, ...action.payload}
+            }
+        }
         default: {
             return state;
         }
@@ -110,6 +117,7 @@ export const addPost = (newPostText) => ({ type: ADD_POST, payload: newPostText 
 export const deletePost = (postId) => ({ type: DELETE_POST, payload: postId });
 export const setUserProfile = (profile) => ({ type: SET_USER_PROFILE, payload: profile });
 export const setStatus = (status) => ({ type: SET_STATUS, payload: status });
+export const setUserPhoto = (photos) => ({type: SET_USER_PHOTO, payload: photos});
 
 export const getUserPage = (userId) => async (dispatch) => {
     const response = await profileAPI.getUserPage(userId);
@@ -129,8 +137,12 @@ export const updateStatus = (status) => async (dispatch) => {
     }
 }
 
-export const setUserPhoto = (photo) => async (dispatch) => {
+export const putUserPhoto = (photo) => async (dispatch) => {
     const response = await photoAPI.putUserPhoto(photo);
+
+    if (response.resultCode === 0) {
+        dispatch(setUserPhoto(response.data));
+    }
 }
 
 export default profileReducer;
