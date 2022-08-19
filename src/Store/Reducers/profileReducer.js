@@ -1,4 +1,4 @@
-import { profileAPI } from '../../API/api';
+import { photoAPI, profileAPI } from '../../API/api';
 
 import camera_img from '../../icons/camera_25.png';
 import like_img from '../../icons/like.svg';
@@ -11,10 +11,10 @@ import friend2_img from '../../icons/friends/friend_2.jpg';
 import friend3_img from '../../icons/friends/friend_3.jpg';
 import friend4_img from '../../icons/friends/friend_4.jpg';
 
-const _addPost = 'ADD-POST';
-const _setUserProfile = 'SET_USER_PROFILE';
-const _setStatus ="SET_STATUS";
-const _deletePost = "DELETE_POST";
+const ADD_POST = 'social-network/posts/ADD_POST';
+const SET_USER_PROFILE = 'social-network/posts/SET_USER_PROFILE';
+const SET_STATUS ="social-network/posts/SET_STATUS";
+const DELETE_POST = "social-network/posts/DELETE_POST";
 
 const initialState = {
     postStore: [
@@ -41,18 +41,22 @@ const initialState = {
         {
             img: friend1_img,
             name: 'Ярослав',
+            id: 1,
         },
         {
             img: friend2_img,
             name: 'Ярослав',
+            id: 2,
         },
         {
             img: friend3_img,
             name: 'Георгий',
+            id: 3,
         },
         {
             img: friend4_img,
-            name: 'Илья'
+            name: 'Илья',
+            id: 4,
         },
     ],
     profile: null,
@@ -61,7 +65,7 @@ const initialState = {
 
 const profileReducer = (state = initialState, action) => {
     switch(action.type) {
-        case _addPost: {
+        case ADD_POST: {
             const newPost = {
                 name: 'Владислав Павлович',
                 img: camera_img,
@@ -77,59 +81,56 @@ const profileReducer = (state = initialState, action) => {
                 postStore: [...state.postStore, newPost],
             };
         }
-        case _deletePost: {
+        case DELETE_POST: {
             return {
                 ...state,
                 postStore: state.postStore.filter(post => post.id !== action.payload)
             }
         }
-        case _setUserProfile: {
+        case SET_USER_PROFILE: {
             return {
                 ...state, 
                 profile: action.payload
             }
         }
-        case _setStatus: {
+        case SET_STATUS: {
             return {
                 ...state,
                 status: action.payload
             }
         }
         default: {
-            break;
+            return state;
         }
 
     }
-
-    return state;
 }
 
-export const getUserPage = (userId) => (dispatch) => {
-    profileAPI.getUserPage(userId)
-    .then(data => {
-        dispatch(setUserProfile(data));
-    })
+export const addPost = (newPostText) => ({ type: ADD_POST, payload: newPostText });
+export const deletePost = (postId) => ({ type: DELETE_POST, payload: postId });
+export const setUserProfile = (profile) => ({ type: SET_USER_PROFILE, payload: profile });
+export const setStatus = (status) => ({ type: SET_STATUS, payload: status });
+
+export const getUserPage = (userId) => async (dispatch) => {
+    const response = await profileAPI.getUserPage(userId);
+    dispatch(setUserProfile(response));
 }
 
-export const getStatus = (userId) => (dispatch) => {
-    profileAPI.getStatus(userId)
-    .then(data => {
-        dispatch(setStatus(data));
-    })
+export const getStatus = (userId) => async (dispatch) => {
+    const response = await profileAPI.getStatus(userId);
+    dispatch(setStatus(response));
 }
 
-export const updateStatus = (status) => (dispatch) => {
-    profileAPI.updateStatus(status)
-    .then(data => {
-        if (data.resultCode === 0) {
-            dispatch(setStatus(status));
-        }
-    })
+export const updateStatus = (status) => async (dispatch) => {
+    const response = await profileAPI.updateStatus(status);
+
+    if (response.resultCode === 0) {
+        dispatch(setStatus(status));
+    }
 }
 
-export const addPost = (newPostText) => ({type: _addPost, payload: newPostText});
-export const deletePost = (postId) => ({type: _deletePost, payload: postId});
-export const setUserProfile = (profile) => ({type: _setUserProfile, payload: profile});
-export const setStatus = (status) => ({type: _setStatus, payload: status});
+export const setUserPhoto = (photo) => async (dispatch) => {
+    const response = await photoAPI.putUserPhoto(photo);
+}
 
 export default profileReducer;

@@ -4,7 +4,7 @@ import friend1_img from '../../icons/friends/friend_1.jpg';
 import friend2_img from '../../icons/friends/friend_2.jpg';
 import friend3_img from '../../icons/friends/friend_3.jpg';
 
-const _sendMessage = 'SEND-MESSAGE';
+const SEND_MESSAGE = 'social_network/messages/SEND-MESSAGE';
 
 const initialState = {
     messageStore: [
@@ -35,9 +35,9 @@ const initialState = {
     ],
 }
 
-export const messageReducer = (state = initialState, action) => {
+const messageReducer = (state = initialState, action) => {
     switch (action.type) {
-        case _sendMessage: {
+        case SEND_MESSAGE: {
             const newMessage = {
                 name: action.payload.recipient,
                 lastMessage: action.payload.message,
@@ -53,15 +53,11 @@ export const messageReducer = (state = initialState, action) => {
             };
         }
         default: {
-            break;
+            return state;
         }
     }
-    return state;
 }
 
-export const sendMessage = (messageInfo) => {  
-    return {
-        type: _sendMessage,
-        payload: messageInfo
-    }
-}
+export const sendMessage = (messageInfo) => ({ type: SEND_MESSAGE, payload: messageInfo })
+
+export default messageReducer;

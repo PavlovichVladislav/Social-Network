@@ -10,7 +10,7 @@ const mapStateToProps = (state) => {
     const friends = friendsStore.map((friend,index) => {
         if (index < 6) {
             return (
-                <div className={c.friendsBlockFriend}>
+                <div className={c.friendsBlockFriend} key={friend.id}>
                     <img
                         className={c.friendsBlockImg} 
                         src={friend.img} 

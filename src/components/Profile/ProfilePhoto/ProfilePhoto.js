@@ -1,5 +1,5 @@
 import c from './ProfilePhoto.module.css';
-import profile_img from "../../../img/profile_img.jpg"
+import profile_img from "../../../icons/user.png"
 
 const ProfilePhoto = ({photo}) => {
     return (

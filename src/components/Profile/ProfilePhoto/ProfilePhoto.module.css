@@ -1,4 +1,4 @@
-.profile-photo {
+.profilePhoto {
   /* margin: 0 auto; */
   width: 230px;
   background: white;
@@ -11,7 +11,7 @@
   border-radius: 4px;
 }
 
-.profile-photo__img {
+.profilePhotoImg {
   display: block;
   margin: 0 auto;
   height: 200px;
@@ -19,7 +19,7 @@
   object-fit: cover;
 }
   
-.profile-photo__btn {
+.profilePhotoBtn {
   margin: 0 auto;
   margin-top: 5px;
   width: 200px;

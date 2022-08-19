@@ -1,6 +1,7 @@
 import c from './Users.module.css';
 import userPhoto from '../../icons/user.jpg';
-import { NavLink } from "react-router-dom";
+import User from './User';
+
 
 const Users = ({users, onUsersLoad, following, follow, unfollow}) => {
     return (
@@ -12,29 +13,17 @@ const Users = ({users, onUsersLoad, following, follow, unfollow}) => {
                     : photoUrl = userPhoto;
                 
                 return (
-                    <div className={c.user}>
-                        <NavLink to={`/profile/${user.id}`}>
-                            <img className={c.userPhoto} src={photoUrl} alt="user"/>
-                        </NavLink>
-                        <div className={c.userInfo}>
-                            <div className={c.userName}>{user.name}</div>
-                            <div className={c.userStatus}>{user.status}</div>
-                        </div>
-                        {user.followed
-                            ? 
-                                <button
-                                    disabled={following.some(id => id === user.id)} 
-                                    className={c.userBtn}
-                                    onClick={() => {unfollow(user.id)}}
-                                >unfollow</button> 
-                            : 
-                                <button
-                                    disabled={following.some(id => id === user.id)}  
-                                    className={c.userBtn}
-                                    onClick={() => {follow(user.id)}}
-                                >follow</button>
-                        }
-                    </div>
+                    <User
+                        userId={user.id}
+                        photo={photoUrl}
+                        name={user.name}
+                        status={user.status}
+                        followed={user.followed}
+                        following={following}
+                        follow={follow}
+                        unfollow={unfollow}
+                        key={user.id}
+                    />
                 )
             })}
 

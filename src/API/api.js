@@ -52,3 +52,10 @@ export const profileAPI = {
         .then(response => response.data);
     }
 }
+
+export const photoAPI = {
+    putUserPhoto(photo) {
+        return instance.put(`profile/photo`)
+        .then(response => response.data);
+    }
+}

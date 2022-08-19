@@ -1,11 +1,10 @@
 import { authAPI } from "../../API/api";
 
-const _setUserData = 'SET_USER_DATA';
-const _setAuth = "SET_AUTH";
-const _setAuthError ="SET_AUTH_ERROR";
+const SET_USER_DATA = 'social-network/auth/SET_USER_DATA';
+const SET_AUTH = "social-network/auth/SET_AUTH";
+const SET_AUTH_ERROR ="social-network/auth/SET_AUTH_ERROR";
 
 const initialState = {
-    messages: [],
     email: null,
     login: null,
     isAuth: false,
@@ -15,14 +14,14 @@ const initialState = {
 
 const authReducer = (state = initialState, action) => {
     switch(action.type) {
-        case _setUserData: {
+        case SET_USER_DATA: {
             return {
                 ...state,
                 ...action.payload,
                 authError: false
             }
         }
-        case _setAuth: {
+        case SET_AUTH: {
             return {
                 ...state,
                 isAuth: true,
@@ -30,7 +29,7 @@ const authReducer = (state = initialState, action) => {
                 authError: false
             }
         }
-        case _setAuthError: {
+        case SET_AUTH_ERROR: {
             return {
                 ...state,
                 authError: true
@@ -41,45 +40,10 @@ const authReducer = (state = initialState, action) => {
     }
 }
 
-export const login = (authData) => (dispatch) => {
-    authAPI.login(authData)
-    .then(data => {
-        if (data.resultCode === 0) {
-            dispatch(setAuth(data.data.userId))
-            dispatch(authMe());
-        } else if (data.resultCode === 1) {
-            dispatch(setAuthError());
-        }
-    })
-}
-
-export const authMe = () => (dispatch) => {
-    return authAPI.authRequest().then( data  => {
-        if (data.resultCode === 0) {
-            dispatch(setUserData({...data, ...data.data}, true));
-        }
-    })
-}
-
-export const logOut = () => (dispatch) => {
-    authAPI.logout()
-        .then(response => {
-            if (response.resultCode === 0) {
-                dispatch(setUserData({
-                    messages: null, 
-                    email: null, 
-                    login: null, 
-                    id: null
-                }, false));
-            }
-        })
-}
-
-export const setUserData = ({messages, email, login, id}, auth) => {  
+export const setUserData = ({email, login, id}, auth) => {  
     return {
-        type: _setUserData,
+        type: SET_USER_DATA,
         payload: {
-            messages,
             email,
             login,
             isAuth: auth,
@@ -88,16 +52,40 @@ export const setUserData = ({messages, email, login, id}, auth) => {
     }
 }
 
-export const setAuth = (userId) => {
-    return {
-        type: _setAuth,
-        payload: userId
+export const setAuth = (userId) => ({ type: SET_AUTH, payload: userId });
+
+export const setAuthError = () => ({ type: SET_AUTH_ERROR });
+
+export const login = (authData) => async (dispatch) => {
+    const response = await authAPI.login(authData);
+
+    if (response.resultCode === 0) {
+        dispatch(setAuth(response.data.userId))
+        dispatch(authMe());
+    } else if (response.resultCode === 1) {
+        dispatch(setAuthError());
+    }
+
+}
+
+export const authMe = () => async (dispatch) => {
+    const response = await authAPI.authRequest();
+
+    if (response.resultCode === 0) {
+        dispatch(setUserData({...response.data}, true));
     }
 }
 
-export const setAuthError = () => {
-    return {
-        type: _setAuthError
+export const logOut = () => async (dispatch) => {
+    const response = await authAPI.logout();
+
+    if (response.resultCode === 0) {
+        dispatch(setUserData({
+            messages: null, 
+            email: null, 
+            login: null, 
+            id: null
+        }, false));
     }
 }
 

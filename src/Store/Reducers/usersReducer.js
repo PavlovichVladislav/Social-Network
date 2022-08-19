@@ -4,11 +4,11 @@ import user2 from '../../img/user2.jpg'
 
 import { usersAPI } from '../../API/api';
 
-const _toggleFollow = 'TOGGLE_FOLLOW';
-const _setUsers = 'SET_USERS';
-const _setCurPage = 'SET_CURRENT_PAGE';
-const _toggleLoading = 'TOGGLE_LOADING';
-const _toggleFollowing = "TOGGLE_FOLLOWING";
+const TOGGLE_FOLLOW = 'social-network/users/TOGGLE_FOLLOW';
+const SET_USERS = 'social-network/users/SET_USERS';
+const SET_CURRENT_PAGE = 'social-network/users/SET_CURRENT_PAGE';
+const TOGGLE_LOADING = 'social-network/users/TOGGLE_LOADING';
+const TOGGLE_FOLLOWING = "social-network/users/TOGGLE_FOLLOWING";
 
 const initialState = {
     users: [
@@ -50,37 +50,37 @@ const initialState = {
 
 const usersReducer = (state = initialState, action) => {
     switch(action.type) {
-        case _toggleFollow: {
+        case TOGGLE_FOLLOW: {
             return {
                 ...state, 
                 users: state.users.map(user => {
                     if (user.id === action.payload) {
                         return {...user, followed: !user.followed}
                     }
+
                     return user;
                 })
             }
-
         }
-        case _setUsers: {
+        case SET_USERS: {
             return {
                 ...state,
                 users: [...state.users, ...action.payload]
             }
         }
-        case _setCurPage: {
+        case SET_CURRENT_PAGE: {
             return {
                 ...state,
                 currentPage: action.payload
             }
         }
-        case _toggleLoading: {
+        case TOGGLE_LOADING: {
             return {
                 ...state,
                 loading: !state.loading
             }
         }
-        case _toggleFollowing: {
+        case TOGGLE_FOLLOWING: {
             return {
                 ...state,
                 following: state.following.includes(action.payload)
@@ -94,43 +94,45 @@ const usersReducer = (state = initialState, action) => {
 
 }
 
-export const getUsers = (page, pageSize) => (dispatch) => {
+export const toggleFollow = (userId) => ({type: TOGGLE_FOLLOW, payload: userId});
+export const setUsers = (users) => ({type: SET_USERS, payload: users});
+export const setCurPage = (curPage) => ({type: SET_CURRENT_PAGE, payload: curPage});
+export const toggleLoading = () => ({type: TOGGLE_LOADING});
+export const toggleFollowingProcess = (userId) => ({type: TOGGLE_FOLLOWING, payload: userId});
+
+export const getUsers = (page, pageSize) => async (dispatch) => {
     dispatch(toggleLoading());
-    usersAPI.getUsers(page, pageSize)
-    .then(data => {
-        dispatch(setCurPage(page + 1));
-        dispatch(toggleLoading());
-        dispatch(setUsers(data.items));
-    })
+    const response = await usersAPI.getUsers(page, pageSize);
+
+    dispatch(setCurPage(page + 1));
+    dispatch(toggleLoading());
+    dispatch(setUsers(response.items));
+
 }
 
-export const follow = (userId) => (dispatch) => {
+export const follow = (userId) => async (dispatch) => {
     dispatch(toggleFollowingProcess(userId));
-    usersAPI.followRequest(userId)
-    .then(data => {
-        if (data.resultCode === 0) {
-            dispatch(toggleFollow(userId));
-        }
-        dispatch(toggleFollowingProcess(userId));
-    })
+    const response = await usersAPI.followRequest(userId);
+
+    if (response.resultCode === 0) {
+        dispatch(toggleFollow(userId));
+    }
+    
+    dispatch(toggleFollowingProcess(userId));
+
 }
 
-export const unfollow = (userId) => (dispatch) => {
-        dispatch(toggleFollowingProcess(userId));
-        usersAPI.unfollowRequest(userId)
-        .then(data => {
-            if (data.resultCode === 0) {
-                dispatch(toggleFollow(userId));
-            }
-            dispatch(toggleFollowingProcess(userId));
-        })
+export const unfollow = (userId) => async (dispatch) => {
+
+    dispatch(toggleFollowingProcess(userId));
+    const response = await usersAPI.unfollowRequest(userId);
+
+    if (response.resultCode === 0) {
+        dispatch(toggleFollow(userId));
     }
 
-export const toggleFollow = (userId) => ({type: _toggleFollow, payload: userId});
-export const setUsers = (users) => ({type: _setUsers, payload: users});
-export const setCurPage = (curPage) => ({type: _setCurPage, payload: curPage});
-export const toggleLoading = () => ({type: _toggleLoading});
-export const toggleFollowingProcess = (userId) => ({type: _toggleFollowing, payload: userId});
+    dispatch(toggleFollowingProcess(userId));
+}
 
 export default usersReducer;
 

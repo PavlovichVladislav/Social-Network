@@ -1,6 +1,6 @@
 import { authMe } from "./authReducer";
 
-const _setInitialized = "SET_INITIALIZED";
+const SET_INITIALIZED = "social-network/app/SET_INITIALIZED";
 
 const initialState = {
     initialized: false,
@@ -8,7 +8,7 @@ const initialState = {
 
 const appReducer = (state = initialState, action) => {
     switch(action.type) {
-        case _setInitialized: {
+        case SET_INITIALIZED: {
             return {
                 ...state,
                 initialized: true
@@ -19,6 +19,8 @@ const appReducer = (state = initialState, action) => {
     }
 }
 
+export const setInitialized = () => ({ type: SET_INITIALIZED });
+
 export const initializeApp = () => (dispatch) => {
     const promise = dispatch(authMe());
 
@@ -28,7 +30,5 @@ export const initializeApp = () => (dispatch) => {
         });
     
 }
-
-export const setInitialized = () => ({type: _setInitialized});
 
 export default appReducer;

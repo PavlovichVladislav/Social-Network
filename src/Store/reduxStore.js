@@ -1,10 +1,10 @@
 import {applyMiddleware, combineReducers, createStore} from "redux";
+import thunk from "redux-thunk";
 
 import authReducer from "./Reducers/authReducer";
-import { messageReducer } from "./Reducers/messageReducer";
+import messageReducer from "./Reducers/messageReducer";
 import profileReducer from "./Reducers/profileReducer";
 import usersReducer from "./Reducers/usersReducer";
-import thunk from "redux-thunk";
 import appReducer from "./Reducers/appReducer";
 
 const reducers = combineReducers({
@@ -16,7 +16,6 @@ const reducers = combineReducers({
 })
 
 const store = createStore(reducers, applyMiddleware(thunk));
-
 window.store = store;
 
 export default store;
