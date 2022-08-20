@@ -46,12 +46,12 @@ const initialState = {
         },
         {
             img: friend2_img,
-            name: 'Ярослав',
+            name: 'Георгий',
             id: 2,
         },
         {
             img: friend3_img,
-            name: 'Георгий',
+            name: 'Ярослав',
             id: 3,
         },
         {
@@ -69,11 +69,11 @@ const profileReducer = (state = initialState, action) => {
         case ADD_POST: {
             const newPost = {
                 name: 'Владислав Павлович',
-                img: camera_img,
-                date: `${new Date().getDate()} ${new Date().getMonth()} ${new Date().getFullYear()}`,
+                img: state.profile.photos.small,
+                date: `${new Date().getDate()} ${new Date().getMonth() + 1} ${new Date().getFullYear()}`,
                 text: action.payload,
                 likeCount: 6,
-                id: 3,
+                id: state.postStore.length + 1,
                 like: like_img
             };
             

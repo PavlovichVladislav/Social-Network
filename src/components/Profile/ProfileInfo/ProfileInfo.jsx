@@ -3,6 +3,7 @@ import ProfileStatusOld from "./ProfileStatusOld";
 import ProfileStatus from "./ProfileStatus";
 
 const ProfileInfo = ({profile, status, updateStatus, owner}) => {
+    console.log(profile);
     return (
         <div className={c.profileInfo}>
             <h1 className={c.profileInfoName}>{profile.fullName}</h1>
@@ -14,14 +15,16 @@ const ProfileInfo = ({profile, status, updateStatus, owner}) => {
             <div className={c.profileInfoDivider}></div>
             <div className={c.profileInfoContent}>
                 <div >
-                    <div className={c.profileInfoDate}>Date of birth:</div>
-                    <div className="city">City:</div>
-                    <div className="education">Education:</div>
+                    <div className={c.profileInfoDate}>About me:</div>
+                    <div className="contacts">Contacts:</div>
+                    <div className="job">Find a job:</div>
+                    <div className="jobDescr">Descr of job:</div>
                 </div>
                 <div >
-                    <div className={c.profileInfoDate}>15.09.2002</div>
-                    <div className="city">Novosibirsk</div>
-                    <div className="education">NSTU</div>
+                    <div className={c.profileInfoDate}>{profile.aboutMe}</div>
+                    <div className="Contacts">{profile.contacts[0]}</div>
+                    <div className="job">{profile.lookingForAJob}</div>
+                    <div className="jobDescr">{profile.lookingForAJobDescription}</div>
                 </div>
             </div>
         </div>

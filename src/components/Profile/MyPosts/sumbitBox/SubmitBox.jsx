@@ -4,13 +4,14 @@ import React from 'react';
 import { Formik, Form, Field} from 'formik';
 import { validatePost } from '../../../../utils/validators';
 
-const SubmitBox = ({addPost}) => {
+const SubmitBox = ({addPost, photo}) => {
     return (
         <Formik
             initialValues={{ postText: ''}}
-            onSubmit={(values, { setSubmitting}) => {
+            onSubmit={(values, { setSubmitting, resetForm }) => {
                 addPost(values.postText);
                 setSubmitting(false);
+                resetForm({values: ''});
             }}
         >
             {({isSubmitting, errors, setErrors}) => (
@@ -22,7 +23,7 @@ const SubmitBox = ({addPost}) => {
                     <div className={c.submitBoxArea}>
                         <div>
                             <img 
-                                src="https://vk.com/images/camera_50.png" 
+                                src={photo}
                                 alt="profile_img" 
                                 className={c.submitBoxImg}
                             />

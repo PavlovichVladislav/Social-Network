@@ -3,8 +3,7 @@ import { memo } from "react";
 import Post from './Post/Post';
 import SubmitBoxContainer from "./SumbitBox/SubmitBoxContainer";
 
-const Posts = ({posts, deletePost}) => {
-
+const Posts = ({posts, deletePost }) => {
     const newPosts = posts.map((post) => {
         return (
             <Post
