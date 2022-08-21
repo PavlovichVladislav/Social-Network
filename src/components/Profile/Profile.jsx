@@ -5,7 +5,7 @@ import ProfileInfo from "./ProfileInfo/ProfileInfo"
 import ProfilePhoto from "./ProfilePhoto/ProfilePhoto"
 import FriendsBlockContainer from "./FriendsBlock/FriendsBlockContainer"
 
-const Profile = ({profile, status, updateStatus, owner}) => {
+const Profile = ({profile, status, updateStatus, owner, updateUserInfo}) => {
     return (
         <div className={c.profile}>
             <div className={c.profileLeftColumn}>
@@ -21,6 +21,7 @@ const Profile = ({profile, status, updateStatus, owner}) => {
                     status={status}
                     updateStatus={updateStatus}
                     owner={owner}
+                    updateUserInfo={updateUserInfo}
                 /> 
                 <PostsContainer/>
             </div>

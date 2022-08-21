@@ -50,6 +50,13 @@ export const profileAPI = {
     updateStatus(status) {
         return instance.put(`/profile/status`, {status})
         .then(response => response.data);
+    },
+    updateUserInfo(info) {
+        // const copyInfo = JSON.parse(JSON.stringify(info));
+        // console.log(copyInfo);
+
+        return instance.put('/profile', info)
+        .then(response => response.data);
     }
 }
 

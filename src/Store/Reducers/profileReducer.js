@@ -16,6 +16,7 @@ const SET_USER_PROFILE = 'social-network/posts/SET_USER_PROFILE';
 const SET_STATUS ="social-network/posts/SET_STATUS";
 const DELETE_POST = "social-network/posts/DELETE_POST";
 const SET_USER_PHOTO = "social-network/posts/SET_USER_PHOTO";
+const UPDATE_USER_INFO = "social-network/profile/UPDATE_USER_INFO";
 
 const initialState = {
     postStore: [
@@ -143,6 +144,12 @@ export const putUserPhoto = (photo) => async (dispatch) => {
     if (response.resultCode === 0) {
         dispatch(setUserPhoto(response.data));
     }
+}
+
+export const updateUserInfo = (info) => async (dispatch, getState) => {
+    const response = await profileAPI.updateUserInfo(info);
+    dispatch(getUserPage(getState().auth.id));
+    return response;
 }
 
 export default profileReducer;
