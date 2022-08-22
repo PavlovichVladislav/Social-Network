@@ -52,9 +52,6 @@ export const profileAPI = {
         .then(response => response.data);
     },
     updateUserInfo(info) {
-        // const copyInfo = JSON.parse(JSON.stringify(info));
-        // console.log(copyInfo);
-
         return instance.put('/profile', info)
         .then(response => response.data);
     }
@@ -71,5 +68,12 @@ export const photoAPI = {
             }
         })
         .then(response => response.data);
+    }
+}
+
+export const securityApi = {
+    getCaptcha() {
+        return instance.get('security/get-captcha-url')
+        .then(response => response.data.url)
     }
 }

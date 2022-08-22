@@ -1,15 +1,17 @@
-import { authAPI } from "../../API/api";
+import { authAPI, securityApi } from "../../API/api";
 
 const SET_USER_DATA = 'social-network/auth/SET_USER_DATA';
 const SET_AUTH = "social-network/auth/SET_AUTH";
 const SET_AUTH_ERROR ="social-network/auth/SET_AUTH_ERROR";
+const SET_CAPTCHA = "social-network/auth/SET_CAPTCHA";
 
 const initialState = {
     email: null,
     login: null,
     isAuth: false,
     id: null,
-    authError: false
+    authError: false,
+    captcha: ''
 };
 
 const authReducer = (state = initialState, action) => {
@@ -26,13 +28,20 @@ const authReducer = (state = initialState, action) => {
                 ...state,
                 isAuth: true,
                 userId: action.payload,
-                authError: false
+                authError: false,
+                captcha: ''
             }
         }
         case SET_AUTH_ERROR: {
             return {
                 ...state,
                 authError: true
+            }
+        }
+        case SET_CAPTCHA: {
+            return {
+                ...state,
+                captcha: action.payload
             }
         }
         default:
@@ -51,10 +60,9 @@ export const setUserData = ({email, login, id}, auth) => {
         }
     }
 }
-
 export const setAuth = (userId) => ({ type: SET_AUTH, payload: userId });
-
 export const setAuthError = () => ({ type: SET_AUTH_ERROR });
+export const setCaptcha = (captcha) => ({type: SET_CAPTCHA, payload: captcha});
 
 export const login = (authData) => async (dispatch) => {
     const response = await authAPI.login(authData);
@@ -64,8 +72,12 @@ export const login = (authData) => async (dispatch) => {
         dispatch(authMe());
     } else if (response.resultCode === 1) {
         dispatch(setAuthError());
+    } else if (response.resultCode === 10) {
+        const captcha = await dispatch(getCaptchaThunk());
+        dispatch(setCaptcha(captcha));
     }
 
+    return response;
 }
 
 export const authMe = () => async (dispatch) => {
@@ -87,6 +99,10 @@ export const logOut = () => async (dispatch) => {
             id: null
         }, false));
     }
+}
+
+export const getCaptchaThunk = () => async (dispatch) => {
+    return await securityApi.getCaptcha();
 }
 
 export default authReducer;

@@ -1,10 +1,32 @@
 import c from './LoginForm.module.css';
 import { Formik, Form, Field } from 'formik';
+import { connect } from 'react-redux';
 
-const LoginForm = ({login, authError}) => {
+const mapStateToProps = (state) => {
+    return {
+        captcha: state.auth.captcha,
+    }
+}
+
+const Captcha = ({captcha}) => {
+    return (
+        <>
+            {captcha 
+            ? <>
+                <img className={c.captcha} alt='captcha' src={captcha}/> 
+                <Field name='captcha' type='text' placeholder="captcha"/>
+            </>
+            :null}
+        </>
+    )
+}
+
+const CaptchaWithImg = connect(mapStateToProps, null)(Captcha);
+
+const LoginForm = ({login, authError, getCaptchaThunk}) => {
     return (
         <Formik
-            initialValues={{ email: '', password: '', rememberMe: false}}
+            initialValues={{ email: '', password: '', rememberMe: false, captcha: ''}}
             validate={values => {
                 const errors = {};
 
@@ -21,8 +43,14 @@ const LoginForm = ({login, authError}) => {
               return errors;
             }}
             onSubmit={(values, { setSubmitting }) => {
-                login(values);
-                setSubmitting(false);
+                login(values)
+                // .then(response => {
+                //     if (response.resultCode === 10) {
+                //         getCaptchaThunk()
+                //         .then(data => values.captchaImg = data.url);
+                //     }
+                // })
+                .then(setSubmitting(false));
             }}
         >
             {({
@@ -64,6 +92,7 @@ const LoginForm = ({login, authError}) => {
                         disabled={isSubmitting}
                         type="submit"
                     > Log in </button>
+                    <CaptchaWithImg/>
                 </Form>
             )}
       </Formik>

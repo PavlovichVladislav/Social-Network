@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import { login } from "../../../Store/Reducers/authReducer";
+import { login, getCaptchaThunk } from "../../../Store/Reducers/authReducer";
 import LoginForm from "./LoginForm";
 
 const mapStateToProps = (state) => {
@@ -8,4 +8,4 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps, {login})(LoginForm);
+export default connect(mapStateToProps, {login, getCaptchaThunk})(LoginForm);

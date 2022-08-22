@@ -51,7 +51,6 @@ class ProfileContainer extends Component {
     }
 
     render() {
-        console.log('render container');
         return (
             this.props.profile === null 
             ? <Preloader/> 
